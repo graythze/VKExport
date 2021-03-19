@@ -41,9 +41,12 @@ def friends_get(id, token, v):
             'order': 'name',
             'count': '5000',
             'offset': str(offset),
-            'fields': 'nickname, domain, sex, bdate, city, country, timezone, photo_50, photo_100, photo_200_orig,'
-                      'has_mobile, contacts, education, online, relation, last_seen, status, can_write_private_message,'
-                      'can_see_all_posts, can_post, universities',
+            'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,'
+                      'photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,'
+                      'domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,'
+                      'followers_count,counters,occupation,nickname,relatives,relation,personal,connections,exports,'
+                      'wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,'
+                      'can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name',
             'access_token': token,
             'v': v})
         print(request.json())
@@ -162,12 +165,12 @@ def stories_get(id, token, v):
 def users_get(id, token, v):
     request = requests.post("https://api.vk.com/method/users.get", data={
         'user_ids': id,
-        'fields': 'verified,sex,bdate,city,country,home_town,photo_max_orig,domain,wall_comments,contacts,site,'
-                  'education,universities,schools,status,last_seen,followers_count,has_photo,occupation,nickname,'
-                  'relatives,relation,personal,connections,exports,activities,interests,music,movies,tv,books,games,'
-                  'about,quotes,can_post,can_see_all_posts,can_see_audio,can_write_private_message,'
-                  'can_send_friend_request,screen_name,maiden_name,crop_photo,career,can_be_invited_group,counters,'
-                  'military,is_closed',
+        'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,photo_100,'
+                  'photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,domain,has_mobile,'
+                  'contacts,site,education,universities,schools,status,last_seen,followers_count,counters,occupation,'
+                  'nickname,relatives,relation,personal,connections,exports,wall_comments,activities,interests,music,'
+                  'movies,tv,books,games,about,quotes,can_post,can_see_all_posts,can_see_audio,'
+                  'can_write_private_message,timezone,screen_name',
         'access_token': token,
         'v': v}).json()
     if "response" in request:
@@ -211,14 +214,12 @@ def followers_get(id, token, v):
             'user_id': id,
             'offset': str(offset),
             'count': '1000',
-            'fields': 'photo_id, verified, sex, bdate, city, country, home_town, has_photo, photo_50, photo_100, '
-                      'photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig, online, lists, domain, '
-                      'has_mobile, contacts, site, education, universities, schools, status, last_seen, '
-                      'occupation, nickname, relatives, relation, personal, connections, exports, followers_count,'
-                      'wall_comments, activities, interests, music, movies, tv, books, games, about, quotes, can_post, '
-                      'can_see_all_posts, can_see_audio, can_write_private_message, can_send_friend_request, '
-                      'timezone, screen_name, maiden_name, crop_photo, '
-                      'career, military',
+            'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,'
+                      'photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,'
+                      'domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,'
+                      'followers_count,counters,occupation,nickname,relatives,relation,personal,connections,exports,'
+                      'wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,'
+                      'can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name',
             'access_token': token,
             'v': v})
         print(request.json())
@@ -245,9 +246,11 @@ def groups_get(id, token, v):
         request = requests.post("https://api.vk.com/method/groups.get", data={
             'user_id': id,
             'extended': '1',
-            'fields': 'city, country, place, description, wiki_page, members_count, counters, start_date, '
-                      'finish_date, can_post, can_see_all_posts, activity, status, contacts, links, fixed_post, '
-                      'verified, site, can_create_topic',
+            'fields': 'id,name,screen_name,is_closed,deactivated,is_admin,admin_level,is_member,invited_by,type,'
+                      'has_photo,photo_50,photo_100,photo_200,activity,age_limits,can_create_topic,can_message,'
+                      'can_post,can_see_all_posts,can_upload_doc,can_upload_video,city,contacts,counters,country,'
+                      'cover,description,fixed_post,main_album_id,main_section,market,members_count,place,'
+                      'public_date_label,site,status,trending,verified,wiki_page',
             'offset': str(offset),
             'count': '100',
             'access_token': token,
