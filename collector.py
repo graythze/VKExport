@@ -14,42 +14,31 @@ def timer():
 data = {'id': user_id, 'request_time': int(time.time())}
 
 
-a = methods.users_get(user_id, token, v)
-data['main_profile'] = a
+data['main_profile'] = methods.users_get(user_id, token, v)
 
-a = methods.docs_get(user_id, token, v)
-data['documents'] = a
+data['documents'] = methods.docs_get(user_id, token, v)
 
-a = methods.photos_get_all(user_id, token, v)
-data['photos'] = a
+data['photos'] = methods.photos_get_all(user_id, token, v)
 
-a = methods.notes_get(user_id, token, v)
-data['notes'] = a
+data['notes'] = methods.notes_get(user_id, token, v)
 
-a = methods.videos_get(user_id, token, v)
-data['videos'] = a
+data['videos'] = methods.videos_get(user_id, token, v)
 
-a = methods.friends_get(user_id, token, v)
-data['friends'] = a
+data['friends'] = methods.friends_get(user_id, token, v)
 
-a = methods.gifts_get(user_id, token, v)
-data['gifts'] = a
+data['gifts'] = methods.gifts_get(user_id, token, v)
 
-a = methods.stories_get(user_id, token, v)
-data['stories'] = a
+data['stories'] = methods.stories_get(user_id, token, v)
 
-a = methods.groups_get(user_id, token, v)
-data['groups'] = a
+data['groups'] = methods.groups_get(user_id, token, v)
 
 ''' be careful with followers_get. don't use it if you don't want
 to parse ALL FOLLOWERS '''
-# a = methods.followers_get(verified_id, token, v)
-# data['followers'] = a
+# data['followers'] = methods.followers_get(verified_id, token, v)
 
 ''' be careful with messages_get. don't use it if you don't want
 to parse OWN MESSAGES '''
-# a = methods.messages_get(token, v)
-# data['messages'] = a
+# data['messages'] = methods.messages_get(token, v)
 
 
 with open('export' + str(user_id) + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:

@@ -11,9 +11,9 @@ def docs_get(id, token, v):
     requests_all = []
     while True:
         request = requests.post("https://api.vk.com/method/docs.get", data={
-            'count': '1999',
-            'offset': str(offset),
-            'owner_id': str(id),
+            'count': 1999,
+            'offset': offset,
+            'owner_id': id,
             'return_tags': '1',
             'access_token': token,
             'v': v})
@@ -40,7 +40,7 @@ def friends_get(id, token, v):
             'user_id': id,
             'order': 'name',
             'count': '5000',
-            'offset': str(offset),
+            'offset': offset,
             'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,'
                       'photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,'
                       'domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,'
@@ -72,8 +72,8 @@ def gifts_get(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/gifts.get", data={
             'user_id': id,
-            'count': '1009',
-            'offset': str(offset),
+            'count': 1000,
+            'offset': offset,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -99,9 +99,9 @@ def notes_get(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/notes.get", data={
             'user_id': id,
-            'offset': str(offset),
-            'count': '100',
-            'sort': '1',
+            'offset': offset,
+            'count': 100,
+            'sort': 1,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -127,11 +127,11 @@ def photos_get_all(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/photos.getAll", data={
             'owner_id': id,
-            'extended': '1',
-            'offset': str(offset),
-            'count': '200',
-            'photo_sizes': '1',
-            'no_service_albums': '0',
+            'extended': 1,
+            'offset': offset,
+            'count': 200,
+            'photo_sizes': 1,
+            'no_service_albums': 0,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -154,7 +154,7 @@ def photos_get_all(id, token, v):
 def stories_get(id, token, v):
     request = requests.post("https://api.vk.com/method/stories.get", data={
         'owner_id': id,
-        'extended': '1',
+        'extended': 1,
         'access_token': token,
         'v': v}).json()
     if "response" in request:
@@ -184,9 +184,9 @@ def videos_get(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/video.get", data={
             'owner_id': id,
-            'count': '200',
-            'offset': str(offset),
-            'extended': '1',
+            'count': 200,
+            'offset': offset,
+            'extended': 1,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -212,8 +212,8 @@ def followers_get(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/users.getFollowers", data={
             'user_id': id,
-            'offset': str(offset),
-            'count': '1000',
+            'offset': offset,
+            'count': 1000,
             'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,'
                       'photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,'
                       'domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,'
@@ -245,14 +245,14 @@ def groups_get(id, token, v):
     while True:
         request = requests.post("https://api.vk.com/method/groups.get", data={
             'user_id': id,
-            'extended': '1',
+            'extended': 1,
             'fields': 'id,name,screen_name,is_closed,deactivated,is_admin,admin_level,is_member,invited_by,type,'
                       'has_photo,photo_50,photo_100,photo_200,activity,age_limits,can_create_topic,can_message,'
                       'can_post,can_see_all_posts,can_upload_doc,can_upload_video,city,contacts,counters,country,'
                       'cover,description,fixed_post,main_album_id,main_section,market,members_count,place,'
                       'public_date_label,site,status,trending,verified,wiki_page',
-            'offset': str(offset),
-            'count': '100',
+            'offset': offset,
+            'count': 100,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -281,7 +281,7 @@ def messages_get(token, v):
             ids += str(k) + ','
         request = requests.post("https://api.vk.com/method/messages.getById", data={
             'message_ids': ids,
-            'extended': '1',
+            'extended': 1,
             'access_token': token,
             'v': v})
         if "response" in request.json():
