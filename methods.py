@@ -24,8 +24,8 @@ def docs_get(id, token, v):
                     print(str(k))
                     requests_all.append(k)
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 1999
@@ -58,8 +58,8 @@ def friends_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 5000
@@ -85,8 +85,8 @@ def gifts_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 100
@@ -113,8 +113,8 @@ def notes_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 100
@@ -143,8 +143,8 @@ def photos_get_all(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 100
@@ -198,8 +198,8 @@ def videos_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 100
@@ -231,8 +231,8 @@ def followers_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 1000
@@ -264,8 +264,8 @@ def groups_get(id, token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         offset += 100
@@ -294,13 +294,9 @@ def messages_get(token, v):
             else:
                 break
             timer()
-        elif "response" not in request.json():
-            print('nothing')
+        else:
+            print('nothing to parse')
             timer()
             break
         print(ids)
-
-
-
-
-
+    return requests_all
