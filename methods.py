@@ -11,7 +11,7 @@ def docs_get(id, token, v):
     requests_all = []
     while True:
         request = requests.post("https://api.vk.com/method/docs.get", data={
-            'count': 1999,
+            'count': 2000,
             'offset': offset,
             'owner_id': id,
             'return_tags': '1',
@@ -39,7 +39,7 @@ def friends_get(id, token, v):
         request = requests.post("https://api.vk.com/method/friends.get", data={
             'user_id': id,
             'order': 'name',
-            'count': '5000',
+            'count': 5000,
             'offset': offset,
             'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,'
                       'photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,'
@@ -89,7 +89,7 @@ def gifts_get(id, token, v):
             print('nothing to parse')
             timer()
             break
-        offset += 100
+        offset += 1000
     return requests_all
 
 
@@ -147,7 +147,7 @@ def photos_get_all(id, token, v):
             print('nothing to parse')
             timer()
             break
-        offset += 100
+        offset += 200
     return requests_all
 
 
@@ -202,7 +202,7 @@ def videos_get(id, token, v):
             print('nothing to parse')
             timer()
             break
-        offset += 100
+        offset += 200
     return requests_all
 
 
@@ -252,7 +252,7 @@ def groups_get(id, token, v):
                       'cover,description,fixed_post,main_album_id,main_section,market,members_count,place,'
                       'public_date_label,site,status,trending,verified,wiki_page',
             'offset': offset,
-            'count': 100,
+            'count': 1000,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -268,7 +268,7 @@ def groups_get(id, token, v):
             print('nothing to parse')
             timer()
             break
-        offset += 100
+        offset += 1000
     return requests_all
 
 
