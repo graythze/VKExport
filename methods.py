@@ -14,7 +14,7 @@ def docs_get(id, token, v):
             'count': 2000,
             'offset': offset,
             'owner_id': id,
-            'return_tags': '1',
+            'return_tags': 1,
             'access_token': token,
             'v': v})
         print(request.json())
@@ -299,4 +299,33 @@ def messages_get(token, v):
             timer()
             break
         print(ids)
+    return requests_all
+
+
+def wall_get(id, token, v):
+    offset = 0
+    requests_all = []
+    while True:
+        request = requests.post("https://api.vk.com/method/wall.get", data={
+            'owner_id': id,
+            'offset': offset,
+            'count': 100,
+            'filter': 'all',
+            'extended': 1,
+            'access_token': token,
+            'v': v})
+        print(request.json())
+        if "response" in request.json():
+            if len(request.json()["response"]["items"]) > 0:
+                for k in request.json()["response"]["items"]:
+                    print(str(k))
+                    requests_all.append(k)
+            else:
+                break
+            timer()
+        else:
+            print('nothing to parse')
+            timer()
+            break
+        offset += 100
     return requests_all

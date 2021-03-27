@@ -16,6 +16,8 @@ data = {'id': user_id, 'request_time': int(time.time())}
 
 data['main_profile'] = methods.users_get(user_id, token, v)
 
+data['wall'] = methods.wall_get(user_id, token, v)
+
 data['documents'] = methods.docs_get(user_id, token, v)
 
 data['photos'] = methods.photos_get_all(user_id, token, v)

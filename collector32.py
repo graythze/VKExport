@@ -20,6 +20,10 @@ data = {'id': user_id, 'request_time': int(time.time()), 'main_profile': methods
 with open(path + '/profile' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
     file.write(str(data))
 
+data = {'id': user_id, 'request_time': int(time.time()), 'wall': methods.wall_get(user_id, token, v)}
+with open(path + '/wall' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
+    file.write(str(data))
+
 data = {'id': user_id, 'request_time': int(time.time()), 'documents': methods.docs_get(user_id, token, v)}
 with open(path + '/documents' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
     file.write(str(data))
