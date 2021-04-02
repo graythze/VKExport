@@ -16,13 +16,12 @@ def docs_get(id, token, v):
             'owner_id': id,
             'return_tags': 1,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -48,15 +47,12 @@ def friends_get(id, token, v):
                       'wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,'
                       'can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name',
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -75,15 +71,12 @@ def gifts_get(id, token, v):
             'count': 1000,
             'offset': offset,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -103,15 +96,12 @@ def notes_get(id, token, v):
             'count': 100,
             'sort': 1,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -133,15 +123,12 @@ def photos_get_all(id, token, v):
             'photo_sizes': 1,
             'no_service_albums': 0,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -188,15 +175,12 @@ def videos_get(id, token, v):
             'offset': offset,
             'extended': 1,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -221,15 +205,12 @@ def followers_get(id, token, v):
                       'wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,'
                       'can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name',
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -254,15 +235,12 @@ def groups_get(id, token, v):
             'offset': offset,
             'count': 1000,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')
@@ -283,16 +261,14 @@ def messages_get(token, v):
             'message_ids': ids,
             'extended': 1,
             'access_token': token,
-            'v': v})
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
                 count += 100
                 ids = ''
-            else:
-                break
             timer()
         else:
             print('nothing to parse')
@@ -313,15 +289,12 @@ def wall_get(id, token, v):
             'filter': 'all',
             'extended': 1,
             'access_token': token,
-            'v': v})
-        print(request.json())
-        if "response" in request.json():
-            if len(request.json()["response"]["items"]) > 0:
-                for k in request.json()["response"]["items"]:
-                    print(str(k))
-                    requests_all.append(k)
-            else:
-                break
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
             timer()
         else:
             print('nothing to parse')

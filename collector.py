@@ -1,5 +1,5 @@
-import methods
 import settings
+import methods
 import time
 
 token = settings.VK_TOKEN
