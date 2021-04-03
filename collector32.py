@@ -4,8 +4,8 @@ import time
 import os
 
 token = settings.VK_TOKEN
-user_id = str(settings.PAGE_TO_PARSE)
 v = str(settings.V)
+user_id = methods.get_numeric_id(settings.PAGE_TO_PARSE, token, v)
 
 
 def timer():

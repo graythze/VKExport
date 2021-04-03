@@ -4,7 +4,22 @@ import time
 
 def timer():
     time.sleep(0.36)
-    
+
+
+def get_numeric_id(id, token, v):
+    if id.isnumeric():
+        return id
+    else:
+        request = requests.post("https://api.vk.com/method/users.get", data={
+            'user_ids': id,
+            'access_token': token,
+            'v': v}).json()
+        if "response" in request:
+            timer()
+            return request["id"]
+        else:
+            exit('ERROR CODE ' + str(request["error"]["error_code"]) + ': ' + request["error"]["error_msg"])
+
 
 def docs_get(id, token, v):
     offset = 0
