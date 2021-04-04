@@ -16,7 +16,7 @@ def get_numeric_id(id, token, v):
             'v': v}).json()
         if "response" in request:
             timer()
-            return request["id"]
+            return request['response'][0]['id']
         else:
             exit('ERROR CODE ' + str(request["error"]["error_code"]) + ': ' + request["error"]["error_msg"])
 
@@ -67,6 +67,7 @@ def friends_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
                 print(str(k))
+                del k["track_code"]
                 requests_all.append(k)
             timer()
         else:
@@ -154,14 +155,27 @@ def photos_get_all(id, token, v):
 
 
 def stories_get(id, token, v):
-    request = requests.post("https://api.vk.com/method/stories.get", data={
-        'owner_id': id,
-        'extended': 1,
-        'access_token': token,
-        'v': v}).json()
-    if "response" in request:
-        timer()
-        return request
+    offset = 0
+    requests_all = []
+    while True:
+        request = requests.post("https://api.vk.com/method/stories.get", data={
+            'owner_id': id,
+            'extended': 1,
+            'access_token': token,
+            'v': v}).json()
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                del k["track_code"]
+                del k["access_key"]
+                requests_all.append(k)
+            timer()
+        else:
+            print('nothing to parse')
+            timer()
+            break
+        offset += 200
+    return requests_all
 
 
 def users_get(id, token, v):
@@ -175,6 +189,7 @@ def users_get(id, token, v):
                   'can_write_private_message,timezone,screen_name',
         'access_token': token,
         'v': v}).json()
+    print(request)
     if "response" in request:
         timer()
         return request
