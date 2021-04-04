@@ -23,6 +23,6 @@ VKExport allows you export data in JSON file from your or friend's VK page
 
 ## 🔌 Run script
 * Set required variables
-* Type `python collector.py` or `python collector32.py` (for x32 Python ver) to launch
+* Type `python collector.py` or `python collector32.py` (for x32 or get separate files by method) to launch
 
 ## NOTE: If your JSON file is too large, you can get MemoryError error. To avoid it, install x64 Python version
