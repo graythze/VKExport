@@ -11,7 +11,7 @@ def timer():
     time.sleep(0.36)
 
 
-data = {'id': user_id, 'request_time': int(time.time())}
+data = {'id': user_id, 'parsing_started': int(time.time())}
 
 
 data['main_profile'] = methods.users_get(user_id, token, v)
@@ -41,6 +41,8 @@ to parse ALL FOLLOWERS '''
 ''' be careful with messages_get. don't use it if you don't want
 to parse OWN MESSAGES '''
 # data['messages'] = methods.messages_get(token, v)
+
+data['parsing_finished'] = int(time.time())
 
 
 with open('export' + str(user_id) + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
