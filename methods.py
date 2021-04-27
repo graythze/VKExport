@@ -66,7 +66,8 @@ def friends_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
-                del k["track_code"]
+                if "track_code" in k:
+                    del k["track_code"]
                 print(str(k))
                 requests_all.append(k)
             timer()
@@ -91,7 +92,8 @@ def gifts_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
-                del k["gift_hash"]
+                if "gift_hash" in k:
+                    del k["gift_hash"]
                 print(str(k))
                 requests_all.append(k)
             timer()
