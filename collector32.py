@@ -66,15 +66,13 @@ data['parsing_finished'] = int(time.time())
 with open(path + '/groups' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
     file.write(str(data))
 
-''' be careful with followers_get. don't use it if you don't want
-to parse ALL FOLLOWERS '''
+''' be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS '''
 # data = {'id': user_id, 'parsing_started': int(time.time()), 'followers': methods.followers_get(user_id, token, v)}
 # data['parsing_finished'] = int(time.time())
 # with open(path + 'followers' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
 #     file.write(str(data))
 
-''' be careful with messages_get. don't use it if you don't want
-to parse OWN MESSAGES '''
+''' be careful with messages_get. don't use it if you don't want to parse OWN MESSAGES '''
 # data = {'id': user_id, 'parsing_started': int(time.time()), 'groups': methods.messages_get(token, v)}
 # data['parsing_finished'] = int(time.time())
 # with open(path + 'ownMessages_' + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:

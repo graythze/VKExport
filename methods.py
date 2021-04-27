@@ -66,8 +66,8 @@ def friends_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
-                print(str(k))
                 del k["track_code"]
+                print(str(k))
                 requests_all.append(k)
             timer()
         else:
@@ -91,6 +91,7 @@ def gifts_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
+                del k["gift_hash"]
                 print(str(k))
                 requests_all.append(k)
             timer()
@@ -166,8 +167,6 @@ def stories_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
                 print(str(k))
-                del k["track_code"]
-                del k["access_key"]
                 requests_all.append(k)
             timer()
         else:
@@ -290,6 +289,12 @@ def messages_get(token, v):
         request = requests.post("https://api.vk.com/method/messages.getById", data={
             'message_ids': ids,
             'extended': 1,
+            'fields': 'uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_50,photo_100,'
+                      'photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,lists,domain,has_mobile,'
+                      'contacts,site,education,universities,schools,status,last_seen,followers_count,counters,occupation,'
+                      'nickname,relatives,relation,personal,connections,exports,wall_comments,activities,interests,music,'
+                      'movies,tv,books,games,about,quotes,can_post,can_see_all_posts,can_see_audio,'
+                      'can_write_private_message,timezone,screen_name',
             'access_token': token,
             'v': v}).json()
         print(request)
