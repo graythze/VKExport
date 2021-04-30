@@ -66,6 +66,11 @@ data['parsing_finished'] = int(time.time())
 with open(path + '/groups' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
     file.write(str(data))
 
+data = {'id': user_id, 'parsing_started': int(time.time()), 'market': methods.market_get(user_id, token, v)}
+data['parsing_finished'] = int(time.time())
+with open(path + '/market' + user_id + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
+    file.write(str(data))
+
 ''' be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS '''
 # data = {'id': user_id, 'parsing_started': int(time.time()), 'followers': methods.followers_get(user_id, token, v)}
 # data['parsing_finished'] = int(time.time())

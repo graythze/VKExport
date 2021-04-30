@@ -1,4 +1,4 @@
-# 📄 VKExport [Alpha]
+# 📄 VKExport [Beta]
 
 VKExport allows you export data in JSON file from your or friend's VK page
 
@@ -14,6 +14,7 @@ VKExport allows you export data in JSON file from your or friend's VK page
 * Page followers data
 * Groups data
 * Market data
+* Wall data
 * ****OWN messages****
 
 ## 🛠 Setup

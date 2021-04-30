@@ -34,6 +34,8 @@ data['stories'] = methods.stories_get(user_id, token, v)
 
 data['groups'] = methods.groups_get(user_id, token, v)
 
+data['market'] = methods.market_get(user_id, token, v)
+
 ''' be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS '''
 # data['followers'] = methods.followers_get(user_id, token, v)
 

@@ -339,3 +339,28 @@ def wall_get(id, token, v):
             break
         offset += 100
     return requests_all
+
+
+def market_get(id, token, v):
+    offset = 0
+    requests_all = []
+    while True:
+        request = requests.post("https://api.vk.com/method/market.get", data={
+            'owner_id': id,
+            'count': 200,
+            'offset': offset,
+            'extended': 1,
+            'access_token': token,
+            'v': v}).json()
+        print(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for k in request["response"]["items"]:
+                print(str(k))
+                requests_all.append(k)
+            timer()
+        else:
+            print('nothing to parse')
+            timer()
+            break
+        offset += 200
+    return requests_all
