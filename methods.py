@@ -37,12 +37,12 @@ def docs_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 1999
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 1999
     return requests_all
 
 
@@ -70,12 +70,12 @@ def friends_get(id, token, v):
                     del k["track_code"]
                 print(str(k))
                 requests_all.append(k)
+            offset += 5000
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 5000
     return requests_all
 
 
@@ -96,12 +96,12 @@ def gifts_get(id, token, v):
                     del k["gift_hash"]
                 print(str(k))
                 requests_all.append(k)
+            offset += 1000
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 1000
     return requests_all
 
 
@@ -121,12 +121,12 @@ def notes_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 100
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 100
     return requests_all
 
 
@@ -148,12 +148,12 @@ def photos_get_all(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 200
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 200
     return requests_all
 
 
@@ -166,16 +166,17 @@ def stories_get(id, token, v):
             'extended': 1,
             'access_token': token,
             'v': v}).json()
+        print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 200
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 200
     return requests_all
 
 
@@ -212,12 +213,12 @@ def videos_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 200
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 200
     return requests_all
 
 
@@ -242,12 +243,12 @@ def followers_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 1000
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 1000
     return requests_all
 
 
@@ -272,12 +273,12 @@ def groups_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 1000
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 1000
     return requests_all
 
 
@@ -286,7 +287,7 @@ def messages_get(token, v):
     ids = ''
     requests_all = []
     while True:
-        for k in range(0 + count, 100 + count):
+        for k in range(count, 100 + count):
             ids += str(k) + ','
         request = requests.post("https://api.vk.com/method/messages.getById", data={
             'message_ids': ids,
@@ -304,8 +305,8 @@ def messages_get(token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
-                count += 100
                 ids = ''
+            count += 100
             timer()
         else:
             print('nothing to parse')
@@ -332,12 +333,12 @@ def wall_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 100
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 100
     return requests_all
 
 
@@ -357,10 +358,10 @@ def market_get(id, token, v):
             for k in request["response"]["items"]:
                 print(str(k))
                 requests_all.append(k)
+            offset += 200
             timer()
         else:
             print('nothing to parse')
             timer()
             break
-        offset += 200
     return requests_all
