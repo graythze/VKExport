@@ -34,9 +34,7 @@ def docs_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 1999
             timer()
         else:
@@ -65,11 +63,7 @@ def friends_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                if "track_code" in k:
-                    del k["track_code"]
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 5000
             timer()
         else:
@@ -91,11 +85,7 @@ def gifts_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                if "gift_hash" in k:
-                    del k["gift_hash"]
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 1000
             timer()
         else:
@@ -118,9 +108,7 @@ def notes_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 100
             timer()
         else:
@@ -145,9 +133,7 @@ def photos_get_all(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 200
             timer()
         else:
@@ -158,7 +144,6 @@ def photos_get_all(id, token, v):
 
 
 def stories_get(id, token, v):
-    offset = 0
     requests_all = []
     while True:
         request = requests.post("https://api.vk.com/method/stories.get", data={
@@ -168,11 +153,9 @@ def stories_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
-            offset += 200
+            requests_all.append(request["response"])
             timer()
+            break
         else:
             print('nothing to parse')
             timer()
@@ -210,9 +193,7 @@ def videos_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 200
             timer()
         else:
@@ -240,9 +221,7 @@ def followers_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 1000
             timer()
         else:
@@ -270,9 +249,7 @@ def groups_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 1000
             timer()
         else:
@@ -302,10 +279,8 @@ def messages_get(token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
-                ids = ''
+            requests_all.append(request["response"])
+            ids = ''
             count += 100
             timer()
         else:
@@ -330,9 +305,7 @@ def wall_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 100
             timer()
         else:
@@ -355,9 +328,7 @@ def market_get(id, token, v):
             'v': v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                print(str(k))
-                requests_all.append(k)
+            requests_all.append(request["response"])
             offset += 200
             timer()
         else:

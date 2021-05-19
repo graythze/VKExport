@@ -11,38 +11,27 @@ def timer():
     time.sleep(0.36)
 
 
-data = {'id': user_id, 'parsing_started': int(time.time())}
+data = {'id': user_id,
+        'parsing_started': int(time.time()),
+        'main_profile': methods.users_get(user_id, token, v),
+        'wall': methods.wall_get(user_id, token, v),
+        'documents': methods.docs_get(user_id, token, v),
+        'photos': methods.photos_get_all(user_id, token, v),
+        'notes': methods.notes_get(user_id, token, v),
+        'videos': methods.videos_get(user_id, token, v),
+        'friends': methods.friends_get(user_id, token, v),
+        'gifts': methods.gifts_get(user_id, token, v),
+        'stories': methods.stories_get(user_id, token, v),
+        'groups': methods.groups_get(user_id, token, v),
+        'market': methods.market_get(user_id, token, v),
+        'parsing_finished': int(time.time())}
 
-
-data['main_profile'] = methods.users_get(user_id, token, v)
-
-data['wall'] = methods.wall_get(user_id, token, v)
-
-data['documents'] = methods.docs_get(user_id, token, v)
-
-data['photos'] = methods.photos_get_all(user_id, token, v)
-
-data['notes'] = methods.notes_get(user_id, token, v)
-
-data['videos'] = methods.videos_get(user_id, token, v)
-
-data['friends'] = methods.friends_get(user_id, token, v)
-
-data['gifts'] = methods.gifts_get(user_id, token, v)
-
-data['stories'] = methods.stories_get(user_id, token, v)
-
-data['groups'] = methods.groups_get(user_id, token, v)
-
-data['market'] = methods.market_get(user_id, token, v)
 
 ''' be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS '''
 # data['followers'] = methods.followers_get(user_id, token, v)
 
 ''' be careful with messages_get. don't use it if you don't want to parse OWN MESSAGES '''
 # data['messages'] = methods.messages_get(token, v)
-
-data['parsing_finished'] = int(time.time())
 
 
 with open('export' + str(user_id) + "_" + str(int(time.time())) + ".json", mode='w', encoding='utf-8') as file:
