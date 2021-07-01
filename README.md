@@ -1,4 +1,4 @@
-# 📄 VKExport [Beta]
+# 📄 VKExport
 
 VKExport allows you export data in JSON file from your or friend's VK page
 
@@ -15,15 +15,12 @@ VKExport allows you export data in JSON file from your or friend's VK page
 * Groups data
 * Market data
 * Wall data
-* ****OWN messages****
-
-## 🛠 Setup
-* Get VK API token
-* Enter your token to `VK_TOKEN` field and page ID or nickname to `PAGE_TO_PARSE` field
-* If you want, you can set newer API version to `V` field
+* **OWN messages**
 
 ## 🔌 Run script
-* Set required variables
-* Type `python collector.py` or `python collector32.py` (for x32 or get separate files by method) to launch
+* Get VK API token and ID or custom domain of user
+* *If you want, you can set custom API version in variable*
+* Choose .py file to parse. It can be collector.py (parses in one file) or collector32.py (parses in separate files)
+* Run script using `python collector32.py <API token> <page id>`
 
 ## NOTE: If your JSON file is too large, you can get MemoryError error. To avoid it, install x64 Python version

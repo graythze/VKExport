@@ -1,11 +1,20 @@
-import settings
+import argparse
 import methods
 import time
 import os
 
-token = settings.VK_TOKEN
-v = str(settings.V)
-user_id = str(methods.get_numeric_id(settings.PAGE_TO_PARSE, token, v))
+parser = argparse.ArgumentParser(description='Use example: python collector.py <token> <user ID>')
+parser.add_argument('token',
+                    type=str,
+                    help='Enter your VK API token')
+parser.add_argument('page',
+                    type=str,
+                    help='Enter page ID or custom domain of user')
+args = parser.parse_args()
+
+token = args.token
+v = str(5.82)
+user_id = str(methods.get_numeric_id(args.page, args.token, v))
 
 
 def timer():
