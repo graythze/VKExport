@@ -3,22 +3,27 @@ import methods
 import time
 import os
 
-parser = argparse.ArgumentParser(description='Use example: python collector.py <token> <user ID>')
+
+def timer():
+    time.sleep(0.36)
+
+
+parser = argparse.ArgumentParser(description='Use example: python collector.py <API token> <page id>')
 parser.add_argument('token',
                     type=str,
                     help='Enter your VK API token')
 parser.add_argument('page',
                     type=str,
                     help='Enter page ID or custom domain of user')
+parser.add_argument('-a', '--apiver',
+                    type=float,
+                    default=5.82,
+                    help='Enter API version (8.82 is set by default)')
 args = parser.parse_args()
 
 token = args.token
-v = str(5.82)
-user_id = str(methods.get_numeric_id(args.page, args.token, v))
-
-
-def timer():
-    time.sleep(0.36)
+v = str(args.apiver)
+user_id = str(methods.get_numeric_id(args.page, token, v))
 
 
 path = "export" + str(user_id) + "_" + str(int(time.time()))
@@ -91,6 +96,3 @@ with open(path + "/market" + user_id + "_" + str(int(time.time())) + ".json", mo
 #         "parsing_finished": int(time.time())}
 # with open(path + "ownMessages_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
 #     file.write(str(data))
-
-
-print(data)
