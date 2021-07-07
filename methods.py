@@ -89,7 +89,7 @@ def gifts_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for k in request["response"]["items"]:
-                del k['gift_hash']
+                # del k['gift_hash']
                 requests_all.append(k)
             offset += 1000
             timer()
@@ -160,7 +160,6 @@ def stories_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             timer()
-            break
         else:
             print("nothing to parse")
             timer()
