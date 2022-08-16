@@ -18,81 +18,72 @@ parser.add_argument('page',
 parser.add_argument('-a', '--apiver',
                     type=float,
                     default=5.82,
-                    help='Enter API version (8.82 is set by default)')
+                    help='Enter API version (5.82 is set by default)')
 args = parser.parse_args()
 
 token = args.token
 v = str(args.apiver)
 user_id = str(methods.get_numeric_id(args.page, token, v))
 
-
 path = "export" + str(user_id) + "_" + str(int(time.time()))
 os.mkdir(path)
 
 
+def create_file(name, data):
+    with open(path + str(name) + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
+        file.write(str(data))
+
+
 data = {"id": user_id, "parsing_started": int(time.time()), "main_profile": methods.users_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/profile" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/profile", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "wall": methods.wall_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/wall" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/wall", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "documents": methods.docs_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/documents" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/documents", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "photos": methods.photos_get_all(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/photos" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/photos", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "notes": methods.notes_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/notes" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/notes", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "videos": methods.videos_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/videos" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/videos", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "friends": methods.friends_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/friends" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/friends", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "gifts": methods.gifts_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/gifts" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/gifts", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "stories": methods.stories_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/stories" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/stories", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "groups": methods.groups_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/groups" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/groups", data)
 
 data = {"id": user_id, "parsing_started": int(time.time()), "market": methods.market_get(user_id, token, v),
         "parsing_finished": int(time.time())}
-with open(path + "/market" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-    file.write(str(data))
+create_file("/market", data)
 
 """ be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS """
 # data = {"id": user_id, "parsing_started": int(time.time()), "followers": methods.followers_get(user_id, token, v),
 #         "parsing_finished": int(time.time())}
-# with open(path + "followers" + user_id + "_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-#     file.write(str(data))
+# create_file("/followers", data)
 
 """ be careful with messages_get. don't use it if you don't want to parse OWN MESSAGES """
 # data = {"id": user_id, "parsing_started": int(time.time()), "groups": methods.messages_get(token, v),
 #         "parsing_finished": int(time.time())}
-# with open(path + "ownMessages_" + str(int(time.time())) + ".json", mode="w", encoding="utf-8") as file:
-#     file.write(str(data))
+# create_file("/ownMessages", data)
