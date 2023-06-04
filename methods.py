@@ -3,22 +3,21 @@ import time
 
 
 def timer():
-    time.sleep(0.36)
+    time.sleep(1/3)
 
 
 def get_numeric_id(id, token, v):
     if id.isnumeric():
         return id
+    request = requests.post("https://api.vk.com/method/users.get", data={
+        "user_ids": id,
+        "access_token": token,
+        "v": v}).json()
+    if "response" in request:
+        timer()
+        return request["response"][0]["id"]
     else:
-        request = requests.post("https://api.vk.com/method/users.get", data={
-            "user_ids": id,
-            "access_token": token,
-            "v": v}).json()
-        if "response" in request:
-            timer()
-            return request["response"][0]["id"]
-        else:
-            exit("ERROR CODE " + str(request["error"]["error_code"]) + ": " + request["error"]["error_msg"])
+        exit("ERROR CODE " + str(request["error"]["error_code"]) + ": " + request["error"]["error_msg"])
 
 
 def docs_get(id, token, v):
@@ -34,8 +33,7 @@ def docs_get(id, token, v):
             "v": v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                requests_all.append(k)
+            requests_all.extend(iter(request["response"]["items"]))
             offset += 1999
             timer()
         else:
@@ -64,9 +62,7 @@ def friends_get(id, token, v):
             "v": v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                del k["track_code"]
-                requests_all.append(k)
+            requests_all.extend(iter(request["response"]["items"]))
             offset += 5000
             timer()
         else:
@@ -88,9 +84,7 @@ def gifts_get(id, token, v):
             "v": v}).json()
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
-            for k in request["response"]["items"]:
-                # del k['gift_hash']
-                requests_all.append(k)
+            requests_all.extend(iter(request["response"]["items"]))
             offset += 1000
             timer()
         else:
@@ -269,7 +263,7 @@ def messages_get(token, v):
     requests_all = []
     while True:
         for k in range(count, 100 + count):
-            ids += str(k) + ","
+            ids += f"{str(k)},"
         request = requests.post("https://api.vk.com/method/messages.getById", data={
             "message_ids": ids,
             "extended": 1,
