@@ -26,10 +26,10 @@ parser.add_argument('-s', '-save',
 args = parser.parse_args()
 
 token = args.token
-v = str(args.apiver)
+v = str(args.api)
 user_id = str(methods.get_numeric_id(args.page, token, v))
 
-if args.type == "sep":
+if args.save == "sep":
     path = f"export{user_id}_{int(time.time())}"
     os.mkdir(path)
 
