@@ -9,17 +9,17 @@ def timer():
 
 
 parser = argparse.ArgumentParser(description='Use example: python collector.py <API token> <page id> -a <API ver> -s <save option>')
-parser.add_argument('-t', '-token',
+parser.add_argument('token',
                     type=str,
                     help='VK API token')
-parser.add_argument('-p', '-page',
+parser.add_argument('page',
                     type=str,
                     help="Page ID or custom user's domain")
-parser.add_argument('-a', '-api',
+parser.add_argument('-a', '--api',
                     type=float,
                     default=5.82,
                     help='Enter API version (5.82 is set by default)')
-parser.add_argument('-s', '-save',
+parser.add_argument('-s', '--save',
                     type=str,
                     default='sep',
                     help='Save as single file or file separated by method (separate file is used by default)')
