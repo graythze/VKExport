@@ -9,7 +9,7 @@ VKExport allows you export data in JSON file from your or friend's VK page
 * Gifts data
 * Notes data
 * Photos data
-* Stories data (if they are available)
+* Stories data
 * Videos data
 * Page followers data
 * Groups data

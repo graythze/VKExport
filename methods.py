@@ -1,10 +1,7 @@
 import requests
 import time
 
-
-def timer():
-    time.sleep(1/3)
-
+time_wait = 1/3
 
 def get_numeric_id(id, token, v):
     if id.isnumeric():
@@ -14,7 +11,7 @@ def get_numeric_id(id, token, v):
         "access_token": token,
         "v": v}).json()
     if "response" in request:
-        timer()
+        time.sleep(time_wait)
         return request["response"][0]["id"]
     else:
         exit("ERROR CODE " + str(request["error"]["error_code"]) + ": " + request["error"]["error_msg"])
@@ -35,10 +32,10 @@ def docs_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             offset += 1999
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -64,10 +61,10 @@ def friends_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             offset += 5000
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -86,10 +83,10 @@ def gifts_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             offset += 1000
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -109,10 +106,10 @@ def notes_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 100
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -134,10 +131,10 @@ def photos_get_all(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 200
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -153,10 +150,10 @@ def stories_get(id, token, v):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -174,7 +171,7 @@ def users_get(id, token, v):
         "v": v}).json()
     print(request)
     if "response" in request:
-        timer()
+        time.sleep(time_wait)
         return request["response"]
 
 
@@ -193,15 +190,16 @@ def videos_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 200
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
 
 def followers_get(id, token, v):
+    """ be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS """
     offset = 0
     requests_all = []
     while True:
@@ -221,10 +219,10 @@ def followers_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 1000
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -249,15 +247,16 @@ def groups_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 1000
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
 
 def messages_get(token, v):
+    """ be careful with messages_get. don't use it if you don't want to parse OWN MESSAGES """
     count = 0
     ids = ""
     requests_all = []
@@ -280,10 +279,10 @@ def messages_get(token, v):
             requests_all.append(request["response"])
             ids = ""
             count += 100
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
         print(ids)
     return requests_all
@@ -305,10 +304,10 @@ def wall_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 100
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all
 
@@ -328,9 +327,9 @@ def market_get(id, token, v):
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             offset += 200
-            timer()
+            time.sleep(time_wait)
         else:
             print("nothing to parse")
-            timer()
+            time.sleep(time_wait)
             break
     return requests_all

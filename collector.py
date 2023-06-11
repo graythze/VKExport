@@ -3,10 +3,7 @@ import methods
 import time
 import os
 
-
-def timer():
-    time.sleep(1/3)
-
+default_api_ver = 5.82
 
 parser = argparse.ArgumentParser(description='Use example: python collector.py <API token> <page id> -a <API ver> -s <save option>')
 parser.add_argument('token',
@@ -14,11 +11,11 @@ parser.add_argument('token',
                     help='VK API token')
 parser.add_argument('page',
                     type=str,
-                    help="Page ID or custom user's domain")
+                    help="Page ID or custom user domain")
 parser.add_argument('-a', '--api',
                     type=float,
-                    default=5.82,
-                    help='Enter API version (5.82 is set by default)')
+                    default=default_api_ver,
+                    help=f'Enter API version ({default_api_ver} is set by default)')
 parser.add_argument('-s', '--save',
                     type=str,
                     default='sep',
@@ -74,8 +71,6 @@ else:
     with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
         file.write(str(data))
 
-""" be careful with followers_get. don't use it if you don't want to parse ALL FOLLOWERS """
 # data["followers"] = methods.followers_get(user_id, token, v)
 
-""" be careful with messages_get. don't use it if you don't want to parse OWN MESSAGES """
 # data["messages"] = methods.messages_get(token, v)
