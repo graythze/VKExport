@@ -22,18 +22,17 @@ parser.add_argument('-s', '--save',
                     help='Save as single file or file separated by method (separate file is used by default)')
 args = parser.parse_args()
 
+def create_file(name, data):
+    with open(f"{path}/{name}{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
+        file.write(str(data))
+
 token = args.token
 v = str(args.api)
 user_id = str(methods.get_numeric_id(args.page, token, v))
 
-if args.save == "sep":
+if "sep" in args.save:
     path = f"export{user_id}_{int(time.time())}"
     os.mkdir(path)
-
-    def create_file(name, data):
-        with open(f"{path}/{name}{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
-            file.write(str(data))
-
     data_types = [("main_profile", methods.users_get),
                   ("wall", methods.wall_get),
                   ("documents", methods.docs_get),
@@ -52,7 +51,7 @@ if args.save == "sep":
                 data_type: method(user_id, token, v),
                 "parsing_finished": int(time.time())}
         create_file(data_type, data)
-else:
+elif "sin" in args.save:
     data = {"id": user_id,
             "parsing_started": int(time.time()),
             "main_profile": methods.users_get(user_id, token, v),
@@ -67,7 +66,6 @@ else:
             "groups": methods.groups_get(user_id, token, v),
             "market": methods.market_get(user_id, token, v),
             "parsing_finished": int(time.time())}
-
     with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
         file.write(str(data))
 
