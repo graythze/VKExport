@@ -33,7 +33,7 @@ user_id = str(methods.get_numeric_id(args.page, token, v))
 if "sep" in args.save:
     path = f"export{user_id}_{int(time.time())}"
     os.mkdir(path)
-    data_types = [("main_profile", methods.users_get),
+    data_types = [("profile", methods.users_get),
                   ("wall", methods.wall_get),
                   ("documents", methods.docs_get),
                   ("photos", methods.photos_get_all),

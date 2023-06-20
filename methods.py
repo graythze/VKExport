@@ -6,17 +6,15 @@ time_wait = 1/3
 def make_request(method, data, def_offset):
     offset = 0
     requests_all = []
-    print(data)
     while True:
         request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
-        # print(request)
+        print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             if def_offset > 0:
                 offset += def_offset
                 data["offset"] = offset
                 time.sleep(time_wait)
-                print(data)
         else:
             print("nothing to parse")
             time.sleep(time_wait)
