@@ -3,7 +3,9 @@ import time
 
 time_wait = 1/3
 
-def make_request(method, data, def_offset):
+def make_request(method, data, def_offset, token, v):
+    data["access_token"] = token
+    data["v"] = v
     offset = 0
     requests_all = []
     while True:
@@ -11,6 +13,7 @@ def make_request(method, data, def_offset):
         print(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
+            print(data["offset"])
             if def_offset > 0:
                 offset += def_offset
                 data["offset"] = offset
@@ -30,7 +33,7 @@ def get_numeric_id(id, token, v):
         "v": v}).json()
     if "response" in request:
         time.sleep(time_wait)
-        return request["response"][0]["id"]
+        return str(request["response"][0]["id"])
     else:
         exit(f"ERROR CODE {request['error']['error_code']}: {request['error']['error_msg']}")
 
@@ -40,10 +43,8 @@ def docs_get(id, token, v):
         "count": 2000,
         "offset": 0,
         "owner_id": id,
-        "return_tags": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("docs.get", data, 2000)
+        "return_tags": 1}
+    return make_request("docs.get", data, 2000, token, v)
 
 
 def friends_get(id, token, v):
@@ -57,20 +58,16 @@ def friends_get(id, token, v):
                   "domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,"
                   "followers_count,counters,occupation,nickname,relatives,relation,personal,connections,exports,"
                   "wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,"
-                  "can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name",
-        "access_token": token,
-        "v": v}
-    return make_request("friends.get", data, 5000)
+                  "can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name"}
+    return make_request("friends.get", data, 5000, token, v)
 
 
 def gifts_get(id, token, v):
     data = {
         "user_id": id,
         "count": 1000,
-        "offset": 0,
-        "access_token": token,
-        "v": v}
-    return make_request("gifts.get", data, 1000)
+        "offset": 0}
+    return make_request("gifts.get", data, 1000, token, v)
 
 
 def notes_get(id, token, v):
@@ -78,10 +75,8 @@ def notes_get(id, token, v):
         "user_id": id,
         "offset": 0,
         "count": 100,
-        "sort": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("notes.get", data, 100)
+        "sort": 1}
+    return make_request("notes.get", data, 100, token, v)
 
 
 def photos_get_all(id, token, v):
@@ -91,19 +86,15 @@ def photos_get_all(id, token, v):
         "offset": 0,
         "count": 200,
         "photo_sizes": 1,
-        "no_service_albums": 0,
-        "access_token": token,
-        "v": v}
-    return make_request("photos.getAll", data, 200)
+        "no_service_albums": 0}
+    return make_request("photos.getAll", data, 200, token, v)
 
 
 def stories_get(id, token, v):
     data = {
         "owner_id": id,
-        "extended": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("stories.get", data, 0)
+        "extended": 1,}
+    return make_request("stories.get", data, 0, token, v)
 
 
 def users_get(id, token, v):
@@ -128,10 +119,8 @@ def videos_get(id, token, v):
         "owner_id": id,
         "count": 200,
         "offset": 0,
-        "extended": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("video.get", data, 200)
+        "extended": 1}
+    return make_request("video.get", data, 200, token, v)
 
 
 # def followers_get(id, token, v):
@@ -145,10 +134,8 @@ def videos_get(id, token, v):
 #                   "domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,"
 #                   "followers_count,counters,occupation,nickname,relatives,relation,personal,connections,exports,"
 #                   "wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post,"
-#                   "can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name",
-#         "access_token": token,
-#         "v": v}
-#     return make_request("users.getFollowers", data, 1000)
+#                   "can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name"}
+#     return make_request("users.getFollowers", data, 1000, token, v)
 #
 
 
@@ -162,10 +149,8 @@ def groups_get(id, token, v):
                   "cover,description,fixed_post,main_album_id,main_section,market,members_count,place,"
                   "public_date_label,site,status,trending,verified,wiki_page",
         "offset": 0,
-        "count": 1000,
-        "access_token": token,
-        "v": v}
-    return make_request("groups.get", data, 1000)
+        "count": 1000}
+    return make_request("groups.get", data, 1000, token, v)
 
 
 # def messages_get(token, v):
@@ -207,10 +192,8 @@ def wall_get(id, token, v):
         "offset": 0,
         "count": 100,
         "filter": "all",
-        "extended": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("wall.get", data, 100)
+        "extended": 1}
+    return make_request("wall.get", data, 100, token, v)
 
 
 
@@ -219,7 +202,5 @@ def market_get(id, token, v):
         "owner_id": id,
         "count": 200,
         "offset": 0,
-        "extended": 1,
-        "access_token": token,
-        "v": v}
-    return make_request("market.get", data, 200)
+        "extended": 1}
+    return make_request("market.get", data, 200, token, v)

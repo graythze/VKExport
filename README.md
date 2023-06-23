@@ -20,25 +20,27 @@ VKExport allows you export data in JSON file from your or friend's VK page
 Run `python collector.py -h`
 
 ```
-usage: collector.py [-h] [-t T] [-p P] [-a A] [-s S]
+usage: collector.py [-h] [-v VER] [-s SAVE] token page
 
-Use example: python collector.py <API token> <page id> -a <API ver> -s <save
+Use example: python collector.py <API token> <page id> -v <API ver> -s <save        
 option>
 
+positional arguments:
+  token                 VK API token
+  page                  Page ID or custom user domain
+
 options:
-  -h, --help      show this help message and exit
-  -t T, -token T  VK API token
-  -p P, -page P   Page ID or custom user's domain
-  -a A, -api A    Enter API version (5.82 is set by default)
-  -s S, -save S   Save as single file or file separated by method (separate file
-                  is used by default)
+  -h, --help            show this help message and exit
+  -v VER, --ver VER     Enter API version (5.82 is set by default)
+  -s SAVE, --save SAVE  Save as single file or file separated by method (separate   
+                        file is used by default)
 ```
 
 ## 🔌 Run script
 * Get VK API token and ID or domain of user
 * Run script using 
   
-    `python collector.py <API token> <page id> -a <API ver> -s <save option>` to parse data in one file
+    `python collector.py <API token> <page id> -v <API ver> -s <save option>` to parse data in one file
 
 *You can set custom API version adding `-a <API version>`*
 

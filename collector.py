@@ -5,15 +5,15 @@ import os
 
 default_api_ver = 5.82
 
-parser = argparse.ArgumentParser(description='Use example: python collector.py <API token> <page id> -a <API ver> -s <save option>')
+parser = argparse.ArgumentParser(description='Use example: python collector.py <API token> <page id> -v <API ver> -s <save option>')
 parser.add_argument('token',
                     type=str,
                     help='VK API token')
 parser.add_argument('page',
                     type=str,
                     help="Page ID or custom user domain")
-parser.add_argument('-a', '--api',
-                    type=float,
+parser.add_argument('-v', '--ver',
+                    type=str,
                     default=default_api_ver,
                     help=f'Enter API version ({default_api_ver} is set by default)')
 parser.add_argument('-s', '--save',
@@ -26,9 +26,7 @@ def create_file(name, data):
     with open(f"{path}/{name}{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
         file.write(str(data))
 
-token = args.token
-v = str(args.api)
-user_id = str(methods.get_numeric_id(args.page, token, v))
+user_id = methods.get_numeric_id(args.page, args.token, args.ver)
 
 if "sep" in args.save:
     path = f"export{user_id}_{int(time.time())}"
@@ -48,27 +46,27 @@ if "sep" in args.save:
     for data_type, method in data_types:
         data = {"id": user_id,
                 "parsing_started": int(time.time()),
-                data_type: method(user_id, token, v),
+                data_type: method(user_id, args.token, args.ver),
                 "parsing_finished": int(time.time())}
         create_file(data_type, data)
 elif "sin" in args.save:
     data = {"id": user_id,
             "parsing_started": int(time.time()),
-            "main_profile": methods.users_get(user_id, token, v),
-            "wall": methods.wall_get(user_id, token, v),
-            "documents": methods.docs_get(user_id, token, v),
-            "photos": methods.photos_get_all(user_id, token, v),
-            "notes": methods.notes_get(user_id, token, v),
-            "videos": methods.videos_get(user_id, token, v),
-            "friends": methods.friends_get(user_id, token, v),
-            "gifts": methods.gifts_get(user_id, token, v),
-            "stories": methods.stories_get(user_id, token, v),
-            "groups": methods.groups_get(user_id, token, v),
-            "market": methods.market_get(user_id, token, v),
+            "main_profile": methods.users_get(user_id, args.token, args.ver),
+            "wall": methods.wall_get(user_id, args.token, args.ver),
+            "documents": methods.docs_get(user_id, args.token, args.ver),
+            "photos": methods.photos_get_all(user_id, args.token, args.ver),
+            "notes": methods.notes_get(user_id, args.token, args.ver),
+            "videos": methods.videos_get(user_id, args.token, args.ver),
+            "friends": methods.friends_get(user_id, args.token, args.ver),
+            "gifts": methods.gifts_get(user_id, args.token, args.ver),
+            "stories": methods.stories_get(user_id, args.token, args.ver),
+            "groups": methods.groups_get(user_id, args.token, args.ver),
+            "market": methods.market_get(user_id, args.token, args.ver),
             "parsing_finished": int(time.time())}
     with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
         file.write(str(data))
 
-# data["followers"] = methods.followers_get(user_id, token, v)
+# data["followers"] = methods.followers_get(user_id, args.token, args.ver)
 
-# data["messages"] = methods.messages_get(token, v)
+# data["messages"] = methods.messages_get(user_id, token, args.ver)
