@@ -2,6 +2,7 @@ import argparse
 import methods
 import time
 import os
+import json
 
 default_api_ver = 5.82
 
@@ -42,13 +43,15 @@ if "sep" in args.save:
                   ("stories", methods.stories_get),
                   ("groups", methods.groups_get),
                   ("market", methods.market_get)]
+                  # ("followers", methods.followers_get),
+                  # ("messages", methods.messages_get)]
 
     for data_type, method in data_types:
         data = {"id": user_id,
                 "parsing_started": int(time.time()),
                 data_type: method(user_id, args.token, args.ver),
                 "parsing_finished": int(time.time())}
-        create_file(data_type, data)
+        create_file(data_type, json.dumps(data))
 elif "sin" in args.save:
     data = {"id": user_id,
             "parsing_started": int(time.time()),
@@ -65,8 +68,4 @@ elif "sin" in args.save:
             "market": methods.market_get(user_id, args.token, args.ver),
             "parsing_finished": int(time.time())}
     with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
-        file.write(str(data))
-
-# data["followers"] = methods.followers_get(user_id, args.token, args.ver)
-
-# data["messages"] = methods.messages_get(user_id, token, args.ver)
+        file.write(json.dumps(data))
