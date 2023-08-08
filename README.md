@@ -3,44 +3,64 @@
 VKExport allows you export data in JSON file from your or friend's VK page
 
 ## ✅ Export available for
-* Main profile data
-* Documents  data
-* Friends data
-* Gifts data
-* Notes data
-* Photos data
-* Stories data
-* Videos data
-* Page followers data
-* Groups data
-* Market data
-* Wall data
+* Main profile data ([users.get](https://vk.com/dev/users.get))
+* Documents ([docs.get](https://vk.com/dev/docs.get))
+* Friends ([friends.get](https://vk.com/dev/friends.get))
+* Gifts ([gifts.get](https://vk.com/dev/gifts.get))
+* Notes ([notes.get](https://vk.com/dev/notes.get))
+* Photos ([photos.get](https://vk.com/dev/photos.get))
+* Stories ([stories.get](https://vk.com/dev/stories.get))
+* Videos ([video.get](https://vk.com/dev/video.get))
+* Followers ([users.getFollowers](https://vk.com/dev/users.getFollowers))
+* Groups and public pages ([groups.get](https://vk.com/dev/groups.get))
+* Market items ([market.get](https://vk.com/dev/market.get))
+* Wall posts ([wall.get](https://vk.com/dev/wall.get))
+* Messages ([messages.getById](https://vk.com/dev/messages.getById))
 
-## Usage
-Run `python collector.py -h`
+## ⚙️ Usage
+Run `py collector.py -h`
 
 ```
-usage: collector.py [-h] [-v VER] [-s SAVE] token page
-
-Use example: python collector.py <API token> <page id> -v <API ver> -s <save        
-option>
+usage: collector.py [-h] [-api APIVER] [-s [{1,2}]] [-m [{1,2,3}]]      
+                    [-v [{1,2}]]                                        
+                    token id                                            
+                
+Use example: python collector.py <API token> <page id> -v <API ver> -s  
+<save option>
 
 positional arguments:
   token                 VK API token
-  page                  Page ID or custom user domain
+  id                    Page ID or custom user domain
 
 options:
   -h, --help            show this help message and exit
-  -v VER, --ver VER     Enter API version (5.82 is set by default)
-  -s SAVE, --save SAVE  Save as single file or file separated by method (separate   
-                        file is used by default)
+  -api APIVER, --apiver APIVER
+                        Enter API version
+  -s [{1,2}], --save [{1,2}]
+                        Save method
+  -m [{1,2,3}], --mode [{1,2,3}]
+                        Parser complexity.
+  -v [{1,2}], --verbose [{1,2}]
+                        Set verbose level for CLI
 ```
+### 📍 Arguments
+`token` - VK API Token
+
+`id` - ID or Page domain (eg. `1`, `id1` or `durov`)
+
+`api APIVER, --apiver APIVER` - VK API Version
+
+`-s [{1,2}], --save [{1,2}]` - Save method. `1` saves every method separately, `2` saves in one file
+
+`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods,
+
+`-v [{1,2}], --verbose [{1,2}]` - Set verbose level for CLI. `1` prints successful requests, `2` prints raw JSON requests
 
 ## 🔌 Run script
 * Get VK API token and ID or domain of user
 * Run script using 
   
-    `python collector.py <API token> <page id> -v <API ver> -s <save option>` to parse data in one file
+    `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v <verbose level>` to parse data in one file
 
 *You can set custom API version adding `-a <API version>`*
 
