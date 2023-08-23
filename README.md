@@ -22,8 +22,10 @@ Run `py collector.py -h`
 
 ```
 usage: collector.py [-h] [-api APIVER] [-sf] [-m [{1,2,3}]] [-v]        
-                    token id                                                                                                                    
-Use example: py collector.py <API token> <page id> -v <API ver> -s
+                    [-c CUSTOM]                                         
+                    token id                                            
+                           
+Use example: py collector.py <API token> <page id> -v <API ver> -s      
 <save method> -m <parser mode> -v <verbose level>
 
 positional arguments:
@@ -37,6 +39,8 @@ options:
   -sf, --singlefile     Save result in single file
   -m [{1,2,3}], --mode [{1,2,3}]
   -v, --verbose         Increase output verbosity
+  -c CUSTOM, --custom CUSTOM
+                        Choose custom methods
 
 ```
 ### 📍 Arguments
@@ -52,10 +56,12 @@ options:
 
 `-v, --verbose` - Increase output verbosity
 
+`-c, --custom` - Set custom methods, eg. `photos,wall` will parse photos and wall data
+
 ## 🔌 Run script
 * Get VK API token and ID or domain of user
 * Run script using 
   
-    `py collector.py <token> <page_id> -api <api version> -m <parser mode> [-sf] [-v] `
+    `py collector.py <token> <page_id> -api <api version> -m <parser mode> [-sf] [-v] [-c]`
 
 ## NOTE: If your JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://stackoverflow.com/a/37726090)
