@@ -11,10 +11,10 @@ def make_request(method, data, def_offset, token, v, verbose):
     requests_all = []
     while True:
         request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
-        if verbose == 1:
-            print(f"got {method} request for offset {offset}")
-        elif verbose == 2:
+        if verbose:
             print(request)
+        else:
+            print(f"got {method} request for offset {offset}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             print(data["offset"])
@@ -159,11 +159,11 @@ def messages_get(id, token, v, verbose):
                       "movies,tv,books,games,about,quotes,can_post,can_see_all_posts,can_see_audio",
             "access_token": token,
             "v": v}).json()
-        if verbose == 1:
-            print(f"got messages.getById request for {ids}")
-        elif verbose == 2:
+        if verbose:
             print(request)
             print(ids)
+        else:
+            print(f"got messages.getById request for {ids}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             ids = ""
