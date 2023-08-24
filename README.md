@@ -21,10 +21,10 @@ VKExport allows you export data in JSON file from your or friend's VK page
 Run `py collector.py -h`
 
 ```
-usage: collector.py [-h] [-api APIVER] [-sf] [-m [{1,2,3}]] [-v]        
-                    [-c CUSTOM]                                         
-                    token id                                            
-                           
+usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
+                    [-v]
+                    token id
+
 Use example: py collector.py <API token> <page id> -v <API ver> -s      
 <save method> -m <parser mode> -v <verbose level>
 
@@ -34,14 +34,13 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
+  -c CUSTOM, --custom CUSTOM
+                        Choose custom methods
+  -m {1,2,3}, --mode {1,2,3}
   -api APIVER, --apiver APIVER
                         API version
   -sf, --singlefile     Save result in single file
-  -m [{1,2,3}], --mode [{1,2,3}]
   -v, --verbose         Increase output verbosity
-  -c CUSTOM, --custom CUSTOM
-                        Choose custom methods
-
 ```
 ### 📍 Arguments
 `token` - VK API Token
