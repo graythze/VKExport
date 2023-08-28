@@ -5,85 +5,6 @@
 </h1>
 
 <h1 align="center">
-  <a href="#eng"><b>ENG</b></a>
-</h1>
-
-## 📄 What is it?
-VKExport allows you to export data in JSON file from personal or other VK pages
-
-## Export available for
-* Profile data <kbd>[users.get](https://vk.com/dev/users.get)</kbd>
-* Documents <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
-* Friends <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
-* Gifts <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
-* Notes <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
-* Photos <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
-* Stories <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
-* Videos <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
-* Followers <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
-* Groups, public pages <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
-* Market items <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
-* Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
-* Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
-
-## ⚙️ Usage
-* Use example:
-
-  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
-
-The command `py collector.py -h` output is shown below
-
-```
-usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
-                    [-v]
-                    token id
-
-Use example: py collector.py <API token> <page id> -v <API ver> -s      
-<save method> -m <parser mode> -v
-
-positional arguments:
-  token                 VK API token
-  id                    Page ID or user domain
-
-options:
-  -h, --help            show this help message and exit
-  -c CUSTOM, --custom CUSTOM
-                        Choose custom methods
-  -m {1,2,3}, --mode {1,2,3}
-  -api APIVER, --apiver APIVER
-                        API version
-  -sf, --singlefile     Save result in single file
-  -v, --verbose         Increase output verbosity
-```
-
-### 📍 Arguments
-`token` - VK API Token
-
-`id` - ID or Page domain (e.g. `1`, `id1` or `durov`)
-
-`api APIVER, --apiver APIVER` - VK API Version, eg `5.82`
-
-`-sf, --singlefile ` - Save result in single file. Each file for method by default.
-
-`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods
-
-`-v, --verbose` - Increase output verbosity
-
-`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse photos and wall data
-
-## 🔌 Getting VK API token
-1) Visit [vkhost.github.io](https://vkhost.github.io/)
-2) Choose app. It's better to use token from Kate Mobile or VFeed apps 
-3) Click on app 
-4) Click on "Continue as" or "Allow"
-5) Copy part of URL from `access_token= `to `&expires_in`
-6) Paste token to CLI
-
-You can use other apps or services to get token.
-
-## NOTE: If result JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://www.python.org/downloads/)
-
-<h1 align="center">
   <a href="#rus"><b>RUS</b></a>
 </h1>
 
@@ -162,3 +83,82 @@ options:
 Также можно использовать другие приложения или службы для получения токена.
 
 ## ПРИМЕЧАНИЕ: Если JSON файл слишком большой, есть вероятность получить ошибку MemoryError. Чтобы исправить это, [установите x64 версию Python ](https://www.python.org/downloads/)
+
+<h1 align="center">
+  <a href="#eng"><b>ENG</b></a>
+</h1>
+
+## 📄 What is it?
+VKExport allows you to export data in JSON file from personal or other VK pages
+
+## Export available for
+* Profile data <kbd>[users.get](https://vk.com/dev/users.get)</kbd>
+* Documents <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
+* Friends <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
+* Gifts <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
+* Notes <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
+* Photos <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
+* Stories <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
+* Videos <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
+* Followers <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
+* Groups, public pages <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
+* Market items <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
+* Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+* Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
+
+## ⚙️ Usage
+* Use example:
+
+  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
+
+The command `py collector.py -h` output is shown below
+
+```
+usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
+                    [-v]
+                    token id
+
+Use example: py collector.py <API token> <page id> -v <API ver> -s      
+<save method> -m <parser mode> -v
+
+positional arguments:
+  token                 VK API token
+  id                    Page ID or user domain
+
+options:
+  -h, --help            show this help message and exit
+  -c CUSTOM, --custom CUSTOM
+                        Choose custom methods
+  -m {1,2,3}, --mode {1,2,3}
+  -api APIVER, --apiver APIVER
+                        API version
+  -sf, --singlefile     Save result in single file
+  -v, --verbose         Increase output verbosity
+```
+
+### 📍 Arguments
+`token` - VK API Token
+
+`id` - ID or Page domain (e.g. `1`, `id1` or `durov`)
+
+`api APIVER, --apiver APIVER` - VK API Version, eg `5.82`
+
+`-sf, --singlefile ` - Save result in single file. Each file for method by default.
+
+`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods
+
+`-v, --verbose` - Increase output verbosity
+
+`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse photos and wall data
+
+## 🔌 Getting VK API token
+1) Visit [vkhost.github.io](https://vkhost.github.io/)
+2) Choose app. It's better to use token from Kate Mobile or VFeed apps 
+3) Click on app 
+4) Click on "Continue as" or "Allow"
+5) Copy part of URL from `access_token= `to `&expires_in`
+6) Paste token to CLI
+
+You can use other apps or services to get token.
+
+## NOTE: If result JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://www.python.org/downloads/)
