@@ -1,24 +1,37 @@
-# 📄 VKExport
+<h1 align="center">
+  VKExport 📄
 
-VKExport allows you export data in JSON file from your or friend's VK page
+  [RUS](#-что-это) // [ENG](#-what-is-it)
+</h1>
 
-## ✅ Export available for
-* Main profile data ([users.get](https://vk.com/dev/users.get))
-* Documents ([docs.get](https://vk.com/dev/docs.get))
-* Friends ([friends.get](https://vk.com/dev/friends.get))
-* Gifts ([gifts.get](https://vk.com/dev/gifts.get))
-* Notes ([notes.get](https://vk.com/dev/notes.get))
-* Photos ([photos.get](https://vk.com/dev/photos.get))
-* Stories ([stories.get](https://vk.com/dev/stories.get))
-* Videos ([video.get](https://vk.com/dev/video.get))
-* Followers ([users.getFollowers](https://vk.com/dev/users.getFollowers))
-* Groups and public pages ([groups.get](https://vk.com/dev/groups.get))
-* Market items ([market.get](https://vk.com/dev/market.get))
-* Wall posts ([wall.get](https://vk.com/dev/wall.get))
-* Messages ([messages.getById](https://vk.com/dev/messages.getById))
+<h1 align="center">
+  <a href="#eng"><b>ENG</b></a>
+</h1>
+
+## 📄 What is it?
+VKExport allows you to export data in JSON file from personal or other VK pages
+
+## Export available for
+* Profile data <kbd>[users.get](https://vk.com/dev/users.get)</kbd>
+* Documents <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
+* Friends <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
+* Gifts <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
+* Notes <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
+* Photos <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
+* Stories <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
+* Videos <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
+* Followers <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
+* Groups, public pages <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
+* Market items <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
+* Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+* Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
 
 ## ⚙️ Usage
-Run `py collector.py -h`
+* Use example:
+
+  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
+
+The command `py collector.py -h` output is shown below
 
 ```
 usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
@@ -26,7 +39,7 @@ usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
                     token id
 
 Use example: py collector.py <API token> <page id> -v <API ver> -s      
-<save method> -m <parser mode> -v <verbose level>
+<save method> -m <parser mode> -v
 
 positional arguments:
   token                 VK API token
@@ -42,92 +55,110 @@ options:
   -sf, --singlefile     Save result in single file
   -v, --verbose         Increase output verbosity
 ```
+
 ### 📍 Arguments
 `token` - VK API Token
 
-`id` - ID or Page domain (eg. `1`, `id1` or `durov`)
+`id` - ID or Page domain (e.g. `1`, `id1` or `durov`)
 
 `api APIVER, --apiver APIVER` - VK API Version, eg `5.82`
 
 `-sf, --singlefile ` - Save result in single file. Each file for method by default.
 
-`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods,
+`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods
 
 `-v, --verbose` - Increase output verbosity
 
-`-c, --custom` - Set custom methods, eg. `photos,wall` will parse photos and wall data
+`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse photos and wall data
 
-## 🔌 Run script
-* Get VK API token and ID or domain of user
-* Run script using 
-  
-    `py collector.py <token> <page_id> -api <api version> -m <parser mode> [-sf] [-v] [-c]`
+## 🔌 Getting VK API token
+1) Visit [vkhost.github.io](https://vkhost.github.io/)
+2) Choose app. It's better to use token from Kate Mobile or VFeed apps 
+3) Click on app 
+4) Click on "Continue as" or "Allow"
+5) Copy part of URL from `access_token= `to `&expires_in`
+6) Paste token to CLI
 
-## NOTE: If your JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://stackoverflow.com/a/37726090)
+You can use other apps or services to get token.
 
-# 📄 VKExport
+## NOTE: If result JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://www.python.org/downloads/)
 
-VKExport позволяет экспортировать данные в файл JSON со страницы ВК вашей компании или друга.
+<h1 align="center">
+  <a href="#rus"><b>RUS</b></a>
+</h1>
+
+# 📄 Что это?
+
+VKExport позволяет экспортировать данные в файл JSON с личной страницы ВК или другого человека.
 
 ## ✅ Экспорт доступен для
-* Основные данные профиля ([users.get](https://vk.com/dev/users.get))
-* Документы ([docs.get](https://vk.com/dev/docs.get))
-* Друзья ([friends.get](https://vk.com/dev/friends.get))
-* Подарки ([gifts.get](https://vk.com/dev/gifts.get))
-* Заметки ([notes.get](https://vk.com/dev/notes.get))
-* Фотографии ([photos.get](https://vk.com/dev/photos.get))
-* Истории ([stories.get](https://vk.com/dev/stories.get))
-* Видео ([video.get](https://vk.com/dev/video.get))
-* Подписчики ([users.getFollowers](https://vk.com/dev/users.getFollowers))
-* Группы и паблики ([groups.get](https://vk.com/dev/groups.get))
-* Предметы с рынка ([market.get](https://vk.com/dev/market.get))
-* Сообщения на стене ([wall.get](https://vk.com/dev/wall.get))
-* Сообщения ([messages.getById](https://vk.com/dev/messages.getById))
+* Данных профиля <kbd>[users.get](https://vk.com/dev/users.get)</kbd>
+* Документов <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
+* Друзей <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
+* Подарков <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
+* Заметок <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
+* Фотографий <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
+* Историй <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
+* Видео <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
+* Подписчиков <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
+* Групп и публичных страниц <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
+* Маркета <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
+* Постов на стене <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+* Сообщений <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
 
 ## ⚙️ Использование
-Запустите `py Collector.py -h`
+* Пример запуска
+
+  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
+
+Команда `py collector.py -h` показана ниже
 
 ```
-использование: Collector.py [-h] [-c ПОЛЬЗОВАТЕЛЬСКИЙ | -m {1,2,3}] [-api APIVER] [-sf]
-                     [-в]
-                     идентификатор токена
+usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
+                    [-v]
+                    token id
 
-Пример использования: py Collector.py <токен API> <идентификатор страницы> -v <версия API> -s
-<метод сохранения> -m <режим анализатора> -v <уровень подробного описания>
+Use example: py collector.py <API token> <page id> -v <API ver> -s      
+<save method> -m <parser mode> -v
 
-позиционные аргументы:
-   токен API токен ВК
-   id Идентификатор страницы или домен пользователя
+positional arguments:
+  token                 VK API token
+  id                    Page ID or user domain
 
-параметры:
-   -h, --help показать это справочное сообщение и выйти
-   -c ПОЛЬЗОВАТЕЛЬСКИЙ, --custom ПОЛЬЗОВАТЕЛЬСКИЙ
-                         Выбирайте собственные методы
-   -m {1,2,3}, --mode {1,2,3}
-   -api APIVER, --apiver APIVER
-                         версия API
-   -sf, --singlefile Сохранить результат в один файл
-   -v, --verbose Увеличить детализацию вывода
+options:
+  -h, --help            show this help message and exit
+  -c CUSTOM, --custom CUSTOM
+                        Choose custom methods
+  -m {1,2,3}, --mode {1,2,3}
+  -api APIVER, --apiver APIVER
+                        API version
+  -sf, --singlefile     Save result in single file
+  -v, --verbose         Increase output verbosity
 ```
+
 ### 📍 Аргументы
-`token` - Токен API ВК
+`token` - Токен VK API
 
 `id` — идентификатор или домен страницы (например, `1`, `id1` или `durov`)
 
-`api APIVER, --apiver APIVER` — версия API ВК, например `5.82`
+`api APIVER, --apiver APIVER` — версия API VK, например `5.82`
 
-`-sf, --singlefile ` - Сохранить результат в одном файле. Каждый файл для метода по умолчанию.
+`-sf, --singlefile ` - Сохранение результата в одном файле. По умолчанию, каждый метод сохраняется в отдельный файл
 
-`-m [{1,2,3}], --mode [{1,2,3}]` — сложность парсера. `1` анализирует все, кроме сообщений и подписчиков, `2` анализирует все, кроме сообщений, `3` анализирует все методы,
+`-m [{1,2,3}], --mode [{1,2,3}]` — уровень парсера. `1` парсинг всех методов, кроме сообщений и подписчиков, `2` парсинг всех методов, кроме сообщений, `3` парсинг всех методов,
 
-`-v, --verbose` — увеличить детализацию вывода
+`-v, --verbose` — показать подробности
 
-`-c, --custom` — Установить собственные методы, например. `photos,wall` будет анализировать фотографии и данные стен.
+`-c, --custom` — Выбрать собственные методы. Например. `photos,wall` будет использован парсинг только фотографий и стены пользователя.
 
-## 🔌 Запустить скрипт
-* Получите токен VK API и идентификатор или домен пользователя.
-* Запустите скрипт, используя
-  
-     `py Collector.py <токен> <page_id> -api <версия API> -m <режим анализатора> [-sf] [-v] [-c]`
+## 🔌 Получение API токена
+1) Откройте [vkhost.github.io](https://vkhost.github.io/)
+2) Выберите приложение. Лучше всего использовать приложения Kate Mobile или VFeed 
+3) Нажмите на выбранное приложение
+4) Нажмите на  "Продолжить как" или "Разрешить"
+5) Скопируйте часть URL начиная с `access_token= ` и заканчивая `&expires_in`
+6) Вставьте токен в скрипт
 
-## ПРИМЕЧАНИЕ. Если ваш файл JSON слишком велик, вы можете получить ошибку MemoryError. Чтобы этого избежать, [установите версию Python x64] (https://stackoverflow.com/a/37726090)
+Также можно использовать другие приложения или службы для получения токена.
+
+## ПРИМЕЧАНИЕ: Если JSON файл слишком большой, есть вероятность получить ошибку MemoryError. Чтобы исправить это, [установите x64 версию Python ](https://www.python.org/downloads/)
