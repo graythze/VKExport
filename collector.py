@@ -19,19 +19,21 @@ args = parser.parse_args()
 
 user_id = methods.get_numeric_id(args.id, args.token, args.apiver)
 
-data_types = (("profile", methods.users_get),
-              ("wall", methods.wall_get),
-              ("documents", methods.docs_get),
-              ("photos", methods.photos_get_all),
-              ("notes", methods.notes_get),
-              ("videos", methods.videos_get),
-              ("friends", methods.friends_get),
-              ("stories", methods.stories_get),
-              ("groups", methods.groups_get),
-              ("market", methods.market_get),
-              ("gifts", methods.gifts_get),
-              ("followers", methods.followers_get),
-              ("messages", methods.messages_get))
+data_types = (
+    ("profile", methods.users_get),
+    ("wall", methods.wall_get),
+    ("documents", methods.docs_get),
+    ("photos", methods.photos_get_all),
+    ("notes", methods.notes_get),
+    ("videos", methods.videos_get),
+    ("friends", methods.friends_get),
+    ("stories", methods.stories_get),
+    ("groups", methods.groups_get),
+    ("market", methods.market_get),
+    ("gifts", methods.gifts_get),
+    ("followers", methods.followers_get),
+    ("messages", methods.messages_get)
+)
 
 if args.mode == 1:
     data_types = data_types[0:9]
@@ -45,8 +47,8 @@ if args.singlefile:
     for data_type, method in data_types:
         data[data_type] = method(user_id, args.token, args.apiver, args.verbose)
     data["parsing_finished"] = int(time.time())
-    with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="utf-8") as file:
-        file.write(json.dumps(data))
+    with open(f"export{user_id}_{int(time.time())}.json", mode="w", encoding="UTF-8") as file:
+        file.write(json.dumps(data, ensure_ascii=False))
 elif args.custom:
     path = f"export{user_id}_{int(time.time())}"
     os.mkdir(path)
@@ -57,8 +59,8 @@ elif args.custom:
                         "parsing_started": int(time.time()),
                         data_type: method(user_id, args.token, args.apiver, args.verbose),
                         "parsing_finished": int(time.time())}
-                with open(f"{path}\\{data_type}_{user_id}.json", mode="w", encoding="utf-8") as file:
-                    file.write(json.dumps(data))
+                with open(f"{path}\\{data_type}_{user_id}.json", mode="w", encoding="UTF-8") as file:
+                    file.write(json.dumps(data, ensure_ascii=False))
 else:
     path = f"export{user_id}_{int(time.time())}"
     os.mkdir(path)
@@ -67,5 +69,5 @@ else:
                 "parsing_started": int(time.time()),
                 data_type: method(user_id, args.token, args.apiver, args.verbose),
                 "parsing_finished": int(time.time())}
-        with open(f"{path}\\{data_type}_{user_id}.json", mode="w", encoding="utf-8") as file:
-            file.write(json.dumps(data))
+        with open(f"{path}\\{data_type}_{user_id}.json", mode="w", encoding="UTF-8") as file:
+            file.write(json.dumps(data, ensure_ascii=False))
