@@ -28,11 +28,11 @@ VKExport позволяет экспортировать данные в фай�
 * Сообщений <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
 
 ## ⚙️ Использование
-* Пример запуска
+1) Скачайте скрипт
+2) Установите пакеты, используя команду `pip install -r requirements.txt`
+3) Запустите скрипт, используя команду `python collector.py <API token> <page id> -api <API ver> -m <parser mode> -v`
 
-  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
-
-Команда `py collector.py -h` показана ниже
+Команда `python collector.py -h` показана ниже
 
 ```
 usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
@@ -107,12 +107,11 @@ VKExport allows you to export data in JSON file from personal or other VK pages
 * Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
 
 ## ⚙️ Usage
-* Use example:
+1) Download script
+2) Install packages using `pip install -r requirements.txt`
+3) Run script using `python collector.py <API token> <page id> -api <API ver> -m <parser mode> -v`
 
-  `py collector.py <API token> <page id> -v <API ver> -s <save method> -m <parser mode> -v`
-
-The command `py collector.py -h` output is shown below
-
+The command `python collector.py -h` is shown below
 ```
 usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
                     [-v]
