@@ -1,32 +1,33 @@
 import requests
 import time
-
+import logging
 
 time_wait = 1/3
 
-def make_request(method, data, def_offset, token, v, verbose):
+
+def make_request(method, data, def_offset, token, v):
     data["access_token"] = token
     data["v"] = v
     offset = 0
     requests_all = []
     while True:
         request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
-        if verbose:
-            print(request)
-        else:
-            print(f"got {method} request for offset {offset}")
+        logging.debug(request)
+        logging.info(f"got {method} request for offset {offset}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
-            print(data["offset"])
+            # print(data["offset"])
+            logging.debug(data["offset"])
             if def_offset > 0:
                 offset += def_offset
                 data["offset"] = offset
                 time.sleep(time_wait)
         else:
-            print(f"{method} parsing ended")
+            logging.info(f"{method} parsing ended")
             time.sleep(time_wait)
             break
     return requests_all
+
 
 def get_numeric_id(id, token, v):
     if id.isnumeric():
@@ -41,15 +42,15 @@ def get_numeric_id(id, token, v):
         exit(f"CODE {request['error']['error_code']}: {request['error']['error_msg']}")
 
 
-def docs_get(id, token, v, verbose):
+def docs_get(id, token, v):
     data = {"count": 2000,
             "offset": 0,
             "owner_id": id,
             "return_tags": 1}
-    return make_request("docs.get", data, 2000, token, v, verbose)
+    return make_request("docs.get", data, 2000, token, v)
 
 
-def friends_get(id, token, v, verbose):
+def friends_get(id, token, v):
     data = {"user_id": id,
             "order": "name",
             "count": 5000,
@@ -59,41 +60,41 @@ def friends_get(id, token, v, verbose):
                       "domain,has_mobile,contacts,site,education,universities,schools,status,last_seen,screen_name,"
                       "followers_count,counters,occupation,nickname,relatives,relation,personal,connections,exports,"
                       "wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post"}
-    return make_request("friends.get", data, 5000, token, v, verbose)
+    return make_request("friends.get", data, 5000, token, v)
 
 
-def gifts_get(id, token, v, verbose):
+def gifts_get(id, token, v):
     data = {"user_id": id,
             "count": 1000,
             "offset": 0}
-    return make_request("gifts.get", data, 1000, token, v, verbose)
+    return make_request("gifts.get", data, 1000, token, v)
 
 
-def notes_get(id, token, v, verbose):
+def notes_get(id, token, v):
     data = {"user_id": id,
             "offset": 0,
             "count": 100,
             "sort": 1}
-    return make_request("notes.get", data, 100, token, v, verbose)
+    return make_request("notes.get", data, 100, token, v)
 
 
-def photos_get_all(id, token, v, verbose):
+def photos_get_all(id, token, v):
     data = {"owner_id": id,
             "extended": 1,
             "offset": 0,
             "count": 200,
             "photo_sizes": 1,
             "no_service_albums": 0}
-    return make_request("photos.getAll", data, 200, token, v, verbose)
+    return make_request("photos.getAll", data, 200, token, v)
 
 
-def stories_get(id, token, v, verbose):
+def stories_get(id, token, v):
     data = {"owner_id": id,
             "extended": 1,}
-    return make_request("stories.get", data, 0, token, v, verbose)
+    return make_request("stories.get", data, 0, token, v)
 
 
-def users_get(id, token, v, verbose):
+def users_get(id, token, v):
     request = requests.post("https://api.vk.com/method/users.get", data={
         "user_ids": id,
         "fields": "uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_max,"
@@ -103,21 +104,22 @@ def users_get(id, token, v, verbose):
                   "movies,tv,books,games,about,quotes,can_post,can_see_all_posts,can_see_audio",
         "access_token": token,
         "v": v}).json()
-    print(request)
+    logging.debug(request)
+    logging.info("got users_get/profile request")
     if "response" in request:
         time.sleep(time_wait)
         return request["response"]
 
 
-def videos_get(id, token, v, verbose):
+def videos_get(id, token, v):
     data = {"owner_id": id,
             "count": 200,
             "offset": 0,
             "extended": 1}
-    return make_request("video.get", data, 200, token, v, verbose)
+    return make_request("video.get", data, 200, token, v)
 
 
-def followers_get(id, token, v, verbose):
+def followers_get(id, token, v):
     data = {"user_id": id,
             "offset": 0,
             "count": 1000,
@@ -126,10 +128,10 @@ def followers_get(id, token, v, verbose):
                       "contacts,site,education,universities,schools,status,relation,personal,connections,exports,"
                       "followers_count,can_see_all_posts,can_see_audio,can_write_private_message,timezone,screen_name,"
                       "wall_comments,activities,interests,music,movies,tv,books,games,about,quotes,can_post"}
-    return make_request("users.getFollowers", data, 1000, token, v, verbose)
+    return make_request("users.getFollowers", data, 1000, token, v)
 
 
-def groups_get(id, token, v, verbose):
+def groups_get(id, token, v):
     data = {"user_id": id,
             "extended": 1,
             "fields": "id,name,screen_name,is_closed,deactivated,is_admin,admin_level,is_member,invited_by,type,"
@@ -139,10 +141,10 @@ def groups_get(id, token, v, verbose):
                       "public_date_label,site,status,trending,verified,wiki_page",
         "offset": 0,
         "count": 1000}
-    return make_request("groups.get", data, 1000, token, v, verbose)
+    return make_request("groups.get", data, 1000, token, v)
 
 
-def messages_get(id, token, v, verbose):
+def messages_get(id, token, v):
     count = 0
     ids = ""
     requests_all = []
@@ -159,36 +161,33 @@ def messages_get(id, token, v, verbose):
                       "movies,tv,books,games,about,quotes,can_post,can_see_all_posts,can_see_audio",
             "access_token": token,
             "v": v}).json()
-        if verbose:
-            print(request)
-            print(ids)
-        else:
-            print(f"got messages.getById request for {ids}")
+        logging.debug(request)
+        logging.debug(ids)
+        logging.info(f"got messages.getById request for {ids}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.append(request["response"])
             ids = ""
             count += 100
             time.sleep(time_wait)
         else:
-            print("nothing to parse")
+            logging.info("nothing to parse")
             time.sleep(time_wait)
             break
     return requests_all
 
 
-def wall_get(id, token, v, verbose):
+def wall_get(id, token, v):
     data = {"owner_id": id,
             "offset": 0,
             "count": 100,
             "filter": "all",
             "extended": 1}
-    return make_request("wall.get", data, 100, token, v, verbose)
+    return make_request("wall.get", data, 100, token, v)
 
 
-
-def market_get(id, token, v, verbose):
+def market_get(id, token, v):
     data = {"owner_id": id,
             "count": 200,
             "offset": 0,
             "extended": 1}
-    return make_request("market.get", data, 200, token, v, verbose)
+    return make_request("market.get", data, 200, token, v)
