@@ -16,7 +16,6 @@ def make_request(method, data, def_offset, token, v):
         logging.info(f"got {method} request for offset {offset}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
-            # print(data["offset"])
             logging.debug(data["offset"])
             if def_offset > 0:
                 offset += def_offset
@@ -139,8 +138,8 @@ def groups_get(id, token, v):
                       "can_post,can_see_all_posts,can_upload_doc,can_upload_video,city,contacts,counters,country,"
                       "cover,description,fixed_post,main_album_id,main_section,market,members_count,place,"
                       "public_date_label,site,status,trending,verified,wiki_page",
-        "offset": 0,
-        "count": 1000}
+            "offset": 0,
+            "count": 1000}
     return make_request("groups.get", data, 1000, token, v)
 
 

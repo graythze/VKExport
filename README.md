@@ -23,24 +23,22 @@ VKExport позволяет экспортировать данные в фай�
 * Видео <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
 * Подписчиков <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
 * Групп и публичных страниц <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
-* Маркета <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
+* Маркета (магазина) <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
 * Постов на стене <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 * Сообщений <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
 
 ## ⚙️ Использование
 1) Скачайте скрипт
 2) Установите пакеты, используя команду `pip install -r requirements.txt`
-3) Запустите скрипт, используя команду `python collector.py <API token> <page id> -api <API ver> -m <parser mode> -v`
+3) Запустите скрипт, используя команду `python collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v `
 
 Команда `python collector.py -h` показана ниже
 
 ```
-usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
-                    [-v]
+usage: collector.py [-h] [-c CUSTOM | -b | -e | -f] [-a API] [-sf] [-v]
                     token id
 
-Use example: py collector.py <API token> <page id> -v <API ver> -s      
-<save method> -m <parser mode> -v
+usage: collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v       
 
 positional arguments:
   token                 VK API token
@@ -49,10 +47,11 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -c CUSTOM, --custom CUSTOM
-                        Choose custom methods
-  -m {1,2,3}, --mode {1,2,3}
-  -api APIVER, --apiver APIVER
-                        API version
+                        Parse custom methods
+  -b, --base            Parse basic info
+  -e, --extra           Parse basic + extra info
+  -f, --full            Parse full info
+  -a API, --api API     API version
   -sf, --singlefile     Save result in single file
   -v, --verbose         Increase output verbosity
 ```
@@ -62,15 +61,19 @@ options:
 
 `id` — идентификатор или домен страницы (например, `1`, `id1` или `durov`)
 
-`api APIVER, --apiver APIVER` — версия API VK, например `5.82`
+`-a, --apiver` — версия API VK, например `5.82`. Default: `5.82`
 
-`-sf, --singlefile ` - Сохранение результата в одном файле. По умолчанию, каждый метод сохраняется в отдельный файл
+`-sf, --singlefile` - Сохранение результата в одном файле. По умолчанию, каждый метод сохраняется в отдельный файл
 
-`-m [{1,2,3}], --mode [{1,2,3}]` — уровень парсера. `1` парсинг всех методов, кроме сообщений и подписчиков, `2` парсинг всех методов, кроме сообщений, `3` парсинг всех методов,
+`-b, --base` — Базовый уровень парсера. Парсинг всех методов, кроме <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> и <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
 
-`-v, --verbose` — показать подробности
+`-e, --extra ` — Средний уровень парсера. Парсинг всех методов, кроме <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> 
 
-`-c, --custom` — Выбрать собственные методы. Например. `photos,wall` будет использован парсинг только фотографий и стены пользователя.
+`-f, --full` — Полный уровень парсера. Парсинг всех представленных методов
+
+`-v, --verbose` — Показать подробности
+
+`-c, --custom` — Выбрать собственные методы. Например, при `photos,wall` будет использован парсинг только <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> и <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 
 ## 🔌 Получение API токена
 1) Откройте [vkhost.github.io](https://vkhost.github.io/)
@@ -109,16 +112,14 @@ VKExport allows you to export data in JSON file from personal or other VK pages
 ## ⚙️ Usage
 1) Download script
 2) Install packages using `pip install -r requirements.txt`
-3) Run script using `python collector.py <API token> <page id> -api <API ver> -m <parser mode> -v`
+3) Run script using `python collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v `
 
 The command `python collector.py -h` is shown below
 ```
-usage: collector.py [-h] [-c CUSTOM | -m {1,2,3}] [-api APIVER] [-sf]
-                    [-v]
+usage: collector.py [-h] [-c CUSTOM | -b | -e | -f] [-a API] [-sf] [-v]
                     token id
 
-Use example: py collector.py <API token> <page id> -v <API ver> -s      
-<save method> -m <parser mode> -v
+usage: collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v       
 
 positional arguments:
   token                 VK API token
@@ -127,10 +128,11 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -c CUSTOM, --custom CUSTOM
-                        Choose custom methods
-  -m {1,2,3}, --mode {1,2,3}
-  -api APIVER, --apiver APIVER
-                        API version
+                        Parse custom methods
+  -b, --base            Parse basic info
+  -e, --extra           Parse basic + extra info
+  -f, --full            Parse full info
+  -a API, --api API     API version
   -sf, --singlefile     Save result in single file
   -v, --verbose         Increase output verbosity
 ```
@@ -146,9 +148,17 @@ options:
 
 `-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods
 
+`-b, --base` — Base parser complexity, instead <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> and <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
+
+`-e, --extra ` —  Extra parser complexity, instead <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> 
+
+`-f, --full` — Full parser complexity. Parsing all methods
+
+`-v, --verbose` — Показать подробности
+
 `-v, --verbose` - Increase output verbosity
 
-`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse photos and wall data
+`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> and <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 
 ## 🔌 Getting VK API token
 1) Visit [vkhost.github.io](https://vkhost.github.io/)
