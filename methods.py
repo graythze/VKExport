@@ -203,3 +203,11 @@ def market_get(id, token, v):
             "offset": 0,
             "extended": 1}
     return make_request("market.get", data, 200, token, v)
+
+
+def photos_get_all_comments(id, token, v):
+    data = {"owner_id": id,
+            "count": 100,
+            "offset": 0,
+            "need_likes": 1}
+    return make_request("photos.getAllComments", data, 100, token, v)
