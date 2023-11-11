@@ -19,6 +19,11 @@ parser.add_argument('-sf', '--singlefile', action="store_true", help="Save resul
 parser.add_argument('-v', '--verbose', action="store_true", help="Increase output verbosity")
 args = parser.parse_args()
 
+if args.verbose:
+    logging.basicConfig(encoding='utf-8', level=10)
+else:
+    logging.basicConfig(encoding='utf-8', level=20)
+
 user_id = methods.get_numeric_id(args.id, args.token, args.api)
 
 data_types = (
@@ -36,11 +41,6 @@ data_types = (
     ("followers", methods.followers_get),
     ("messages", methods.messages_get)
 )
-
-if args.verbose:
-    logging.basicConfig(encoding='utf-8', level=10)
-else:
-    logging.basicConfig(encoding='utf-8', level=20)
 
 if args.base:
     data_types = data_types[0:9]

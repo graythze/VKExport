@@ -1,3 +1,5 @@
+import traceback
+import sys
 import requests
 import time
 import logging
@@ -5,20 +7,20 @@ import logging
 time_wait = 1/3
 
 
-def make_request(method, data, def_offset, token, v):
+def make_request(method, data, method_offset, token, v):
     data["access_token"] = token
     data["v"] = v
     offset = 0
     requests_all = []
     while True:
         request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
+        logging.info(f"Received {method} request. Offset: {offset}")
         logging.debug(request)
-        logging.info(f"got {method} request for offset {offset}")
         if "response" in request and len(request["response"]["items"]) > 0:
             requests_all.extend(iter(request["response"]["items"]))
             logging.debug(data["offset"])
-            if def_offset > 0:
-                offset += def_offset
+            if method_offset > 0:
+                offset += method_offset
                 data["offset"] = offset
                 time.sleep(time_wait)
         else:
@@ -29,16 +31,27 @@ def make_request(method, data, def_offset, token, v):
 
 
 def get_numeric_id(id, token, v):
-    if id.isnumeric():
-        return id
-    request = requests.post("https://api.vk.com/method/users.get", data={
-        "user_ids": id,
-        "access_token": token,
-        "v": v}).json()
     try:
-        return str(request["response"][0]["id"])
+        request = requests.post("https://api.vk.com/method/utils.resolveScreenName", data={
+            "screen_name": id,
+            "access_token": token,
+            "v": v}).json()
+        if "response" in request:
+            if id.isnumeric():
+                if int(id) > 0:
+                    return id
+                elif int(id) < 0:
+                    return id
+            else:
+                if "response" in request:
+                    if request["type"] == "group":
+                        return request["response"]["object_id"] * (-1)
+                    elif request["type"] == "user":
+                        return str(request["response"]["object_id"])
+        elif "error" in request:
+            exit(f"\n{request['error']['error_msg']}\n")
     except Exception:
-        exit(f"CODE {request['error']['error_code']}: {request['error']['error_msg']}")
+        sys.exit(traceback.print_exc())
 
 
 def docs_get(id, token, v):
