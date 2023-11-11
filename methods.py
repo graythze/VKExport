@@ -45,7 +45,7 @@ def get_numeric_id(id, token, v):
             else:
                 if "response" in request:
                     if request["type"] == "group":
-                        return request["response"]["object_id"] * (-1)
+                        return str(request["response"]["object_id"] * (-1))
                     elif request["type"] == "user":
                         return str(request["response"]["object_id"])
         elif "error" in request:
