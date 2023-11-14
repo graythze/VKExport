@@ -76,14 +76,26 @@ options:
 `-c, --custom` — Выбрать собственные методы. Например, при `photos,wall` будет использован парсинг только <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> и <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 
 ## 🔌 Получение API токена
-1) Откройте [vkhost.github.io](https://vkhost.github.io/)
-2) Выберите приложение. Лучше всего использовать приложения Kate Mobile или VFeed 
+
+### ⚡ Использование готовых решений
+Сервис [*vkhost.github.io*](https://vkhost.github.io/) позволяет в автоматическом режиме собрать URL и получить токен
+1) Откройте [*vkhost.github.io*](https://vkhost.github.io/)
+2) Выберите приложение. Например, можно выбрать Kate Mobile или VFeed 
 3) Нажмите на выбранное приложение
 4) Нажмите на  "Продолжить как" или "Разрешить"
 5) Скопируйте часть URL начиная с `access_token= ` и заканчивая `&expires_in`
 6) Вставьте токен в скрипт
 
 Также можно использовать другие приложения или службы для получения токена.
+
+### 💪 Собственная сборка URL
+Получить ключ доступа пользователя можно одним из этих способов:
+
+- [*Implicit Flow*](https://dev.vk.com/ru/api/access-token/implicit-flow-user): для работы с API от имени пользователя в Javascript-приложениях и Standalone-клиентах (десктопных или мобильных).
+
+- [*Authorization Code Flow*](https://dev.vk.com/ru/api/access-token/authcode-flow-user): для работы с API от имени пользователя с серверной стороны вашего сайта.
+
+Дополнительную информацию можно найти в [*Общих сведениях*](https://dev.vk.com/ru/api/access-token/getting-started)
 
 ## ПРИМЕЧАНИЕ: Если JSON файл слишком большой, есть вероятность получить ошибку MemoryError. Чтобы исправить это, [установите x64 версию Python ](https://www.python.org/downloads/)
 
@@ -161,6 +173,9 @@ options:
 `-c, --custom` - Set custom methods, e.g. `photos,wall` will parse <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> and <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 
 ## 🔌 Getting VK API token
+
+### ⚡ Third party services
+Service [*vkhost.github.io*](https://vkhost.github.io/) helps automatically bulid URL and get token
 1) Visit [vkhost.github.io](https://vkhost.github.io/)
 2) Choose app. It's better to use token from Kate Mobile or VFeed apps 
 3) Click on app 
@@ -169,5 +184,15 @@ options:
 6) Paste token to CLI
 
 You can use other apps or services to get token.
+
+### 💪 Self-building URL
+
+To get api token you can use one of them ways
+
+- [*Implicit Flow*](https://dev.vk.com/en/api/access-token/implicit-flow-user): to work with API on behalf of the user in Javascript applications and Standalone clients (desktop or mobile).
+
+- [*Authorization Code Flow*](https://dev.vk.com/en/api/access-token/authcode-flow-user): to work with API on behalf of the user from the server side of your site.
+
+You can find extra information at [*General information*](https://dev.vk.com/en/api/access-token/getting-started)
 
 ## NOTE: If result JSON file is too large, you can get MemoryError error. To avoid it, [install x64 Python version](https://www.python.org/downloads/)
