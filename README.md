@@ -88,6 +88,12 @@ options:
 
 Также можно использовать другие приложения или службы для получения токена.
 
+<h3 align="center">
+  <b>⚠️⚠️⚠️</b>
+</h3>
+
+После использования скрипта, **в целях безпопасности КРАЙНЕ рекомендуется удалить API токен**. Это можно сделать двумя способами: [отозвать права на используемое приложения для токена](https://vk.com/settings?act=apps), либо [сменить пароль](https://id.vk.com/account/#/security)
+
 ### 💪 Собственная сборка URL
 Получить ключ доступа пользователя можно одним из этих способов:
 
@@ -185,9 +191,15 @@ Service [*vkhost.github.io*](https://vkhost.github.io/) helps automatically buli
 
 You can use other apps or services to get token.
 
+<h3 align="center">
+  <b>⚠️⚠️⚠️</b>
+</h3>
+
+After using the script **for security reasons, it is HIGHLY recommended to remove the API token**. It is possible to do in two ways: [*revoke app authorization which was used to obtain token*](https://vk.com/settings?act=apps), or [*change the password*](https://id.vk.com/account/#/security)
+
 ### 💪 Self-building URL
 
-To get api token you can use one of them ways
+To get api token you can use one of them ways:
 
 - [*Implicit Flow*](https://dev.vk.com/en/api/access-token/implicit-flow-user): to work with API on behalf of the user in Javascript applications and Standalone clients (desktop or mobile).
 
