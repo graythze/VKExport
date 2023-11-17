@@ -127,6 +127,7 @@ VKExport allows you to export data in JSON file from personal or other VK pages
 * Market items <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
 * Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 * Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
+* Comments under photos </kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
 
 ## ⚙️ Usage
 1) Download script
