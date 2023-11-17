@@ -40,7 +40,7 @@ data_types = (
     ("gifts", methods.gifts_get),
     ("followers", methods.followers_get),
     ("messages", methods.messages_get),
-    ("photosComments", methods.messages_get)
+    ("photosComments", methods.photos_get_all_comments)
 )
 
 if args.base:
@@ -55,7 +55,7 @@ if args.base:
         ("stories", methods.stories_get),
         ("groups", methods.groups_get),
         ("market", methods.market_get),
-        ("photosComments", methods.messages_get)
+        ("photosComments", methods.photos_get_all_comments)
     )
 elif args.extra:
     data_types = (

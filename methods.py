@@ -36,6 +36,7 @@ def get_numeric_id(id, token, v):
             "screen_name": id,
             "access_token": token,
             "v": v}).json()
+        print(request)
         if "response" in request:
             if id.isnumeric():
                 if int(id) > 0:
@@ -44,10 +45,10 @@ def get_numeric_id(id, token, v):
                     return id
             else:
                 if "response" in request:
-                    if request["type"] == "group":
-                        return str(request["response"]["object_id"] * (-1))
-                    elif request["type"] == "user":
-                        return str(request["response"]["object_id"])
+                    if request["response"]["type"] == "group":
+                        return int(request["response"]["object_id"] * (-1))
+                    elif request["response"]["type"] == "user":
+                        return int(request["response"]["object_id"])
         elif "error" in request:
             exit(f"\n{request['error']['error_msg']}\n")
     except Exception:
@@ -219,11 +220,17 @@ def wall_get(id, token, v):
                     if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
                         request_all_comments.extend(iter(comment_request["response"]["items"]))
                         logging.debug(comment_request["response"]["items"])
+                        comment_offset += 100
+                        time.sleep(time_wait)
                     else:
+                        time.sleep(time_wait)
                         break
-                request["response"]["items"][item]["comments"] = []
-                request["response"]["items"][item]["comments"].append(request_all_comments)
+                item["comments"] = []
+                item["comments"].append(request_all_comments)
                 logging.info(f"comments for {item['id']} are parsed")
+            requests_all.extend(iter(request["response"]["items"]))
+            offset += 100
+            time.sleep(time_wait)
         else:
             logging.info(f"wall_get parsing ended")
             time.sleep(time_wait)
