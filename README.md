@@ -26,6 +26,7 @@ VKExport позволяет экспортировать данные в фай�
 * Маркета (магазина) <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
 * Постов на стене <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
 * Сообщений <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
+* Комментарии под фото </kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
 
 ## ⚙️ Использование
 1) Скачайте скрипт
