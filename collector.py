@@ -39,13 +39,40 @@ data_types = (
     ("market", methods.market_get),
     ("gifts", methods.gifts_get),
     ("followers", methods.followers_get),
-    ("messages", methods.messages_get)
+    ("messages", methods.messages_get),
+    ("photosComments", methods.photos_get_all_comments)
 )
 
 if args.base:
-    data_types = data_types[0:9]
+    data_types = (
+        ("profile", methods.users_get),
+        ("wall", methods.wall_get),
+        ("documents", methods.docs_get),
+        ("photos", methods.photos_get_all),
+        ("notes", methods.notes_get),
+        ("videos", methods.videos_get),
+        ("friends", methods.friends_get),
+        ("stories", methods.stories_get),
+        ("groups", methods.groups_get),
+        ("market", methods.market_get),
+        ("photosComments", methods.photos_get_all_comments)
+    )
 elif args.extra:
-    data_types = data_types[0:11]
+    data_types = (
+        ("profile", methods.users_get),
+        ("wall", methods.wall_get),
+        ("documents", methods.docs_get),
+        ("photos", methods.photos_get_all),
+        ("notes", methods.notes_get),
+        ("videos", methods.videos_get),
+        ("friends", methods.friends_get),
+        ("stories", methods.stories_get),
+        ("groups", methods.groups_get),
+        ("market", methods.market_get),
+        ("gifts", methods.gifts_get),
+        ("followers", methods.followers_get),
+        ("photosComments", methods.photos_get_all_comments)
+    )
 elif args.full:
     pass
 elif args.custom:
