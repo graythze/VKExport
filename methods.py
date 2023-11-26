@@ -205,29 +205,32 @@ def wall_get(id, token, v):
         logging.debug(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for item in request["response"]["items"]:
-                comment_offset = 0
-                request_all_comments = []
-                while True:
-                    comment_request = requests.post(f"https://api.vk.com/method/wall.getComments", data={
-                        "owner_id": id,
-                        "post_id": item["id"],
-                        "offset": comment_offset,
-                        "count": 100,
-                        "preview_length": "0",
-                        "extended": 1,
-                        "access_token": token,
-                        "v": v}).json()
-                    if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
-                        request_all_comments.extend(iter(comment_request["response"]["items"]))
-                        logging.debug(comment_request["response"]["items"])
-                        comment_offset += 100
-                        time.sleep(time_wait)
-                    else:
-                        time.sleep(time_wait)
-                        break
-                item["comments"] = []
-                item["comments"].append(request_all_comments)
-                logging.info(f"comments for {item['id']} are parsed")
+                if item["comments"]["count"] > 0:
+                    comment_offset = 0
+                    request_all_comments = []
+                    while True:
+                        comment_request = requests.post(f"https://api.vk.com/method/wall.getComments", data={
+                            "owner_id": id,
+                            "post_id": item["id"],
+                            "offset": comment_offset,
+                            "count": 100,
+                            "preview_length": "0",
+                            "extended": 1,
+                            "access_token": token,
+                            "v": v}).json()
+                        if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
+                            request_all_comments.extend(iter(comment_request["response"]["items"]))
+                            logging.debug(comment_request["response"]["items"])
+                            comment_offset += 100
+                            time.sleep(time_wait)
+                        else:
+                            time.sleep(time_wait)
+                            break
+                    item["comments"] = []
+                    item["comments"].append(request_all_comments)
+                    logging.info(f"comments for {item['id']} are parsed")
+                else:
+                    logging.info(f"comments for {item['id']} are empty. passing this item...")
             requests_all.extend(iter(request["response"]["items"]))
             offset += 100
             time.sleep(time_wait)
