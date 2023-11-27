@@ -335,6 +335,8 @@ def market_get(id, token, v):
     data = {"owner_id": id,
             "count": 200,
             "offset": 0,
-            "extended": 1}
+            "extended": 1,
+            "need_variants": 1,
+            "with_disabled": 1}
     return make_request("market.get", data, 200, token, v)
 
