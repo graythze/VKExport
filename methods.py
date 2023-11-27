@@ -316,8 +316,8 @@ def wall_get(id, token, v):
                         else:
                             time.sleep(time_wait)
                             break
-                    item["comments"] = []
-                    item["comments"].append(request_all_comments)
+                    item["comments_user"] = []
+                    item["comments_user"].append(request_all_comments)
                     logging.info(f"comments for {item['id']} are parsed")
                 else:
                     logging.info(f"comments for {item['id']} are empty. passing this item...")
@@ -338,10 +338,3 @@ def market_get(id, token, v):
             "extended": 1}
     return make_request("market.get", data, 200, token, v)
 
-
-# def photos_get_all_comments(id, token, v):
-#     data = {"owner_id": id,
-#             "count": 100,
-#             "offset": 0,
-#             "need_likes": 1}
-#     return make_request("photos.getAllComments", data, 100, token, v)
