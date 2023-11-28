@@ -6,6 +6,8 @@ import logging
 
 time_wait = 1/3
 
+api_url = "https://api.vk.com/method/"
+
 
 def make_request(method, data, method_offset, token, v):
     data["access_token"] = token
@@ -13,7 +15,7 @@ def make_request(method, data, method_offset, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
+        request = requests.post(f"{api_url}{method}", data=data).json()
         logging.info(f"Received {method} request. Offset: {offset}")
         logging.debug(request)
         if "response" in request and len(request["response"]["items"]) > 0:
@@ -32,7 +34,7 @@ def make_request(method, data, method_offset, token, v):
 
 def get_numeric_id(id, token, v):
     try:
-        request = requests.post("https://api.vk.com/method/utils.resolveScreenName", data={
+        request = requests.post(f"{api_url}utils.resolveScreenName", data={
             "screen_name": id,
             "access_token": token,
             "v": v}).json()
@@ -87,7 +89,7 @@ def notes_get(id, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/notes.get", data={
+        request = requests.post(f"{api_url}notes.get", data={
             "user_id": id,
             "offset": offset,
             "count": 100,
@@ -101,7 +103,7 @@ def notes_get(id, token, v):
                     comment_offset = 0
                     request_all_comments = []
                     while True:
-                        comment_request = requests.post(f"https://api.vk.com/method/notes.getComments", data={
+                        comment_request = requests.post(f"{api_url}notes.getComments", data={
                             "owner_id": id,
                             "note_id": item["id"],
                             "offset": comment_offset,
@@ -144,7 +146,7 @@ def photos_get_all(id, token, v):
             "count": 100,
             "offset": 0,
             "need_likes": 1}
-    comments = [{"comments": make_request("photos.getAllComments", data, 100, token, v)}]
+    comments = [{"comments_user": make_request("photos.getAllComments", data, 100, token, v)}]
 
     return photos + comments
 
@@ -156,7 +158,7 @@ def stories_get(id, token, v):
 
 
 def users_get(id, token, v):
-    request = requests.post("https://api.vk.com/method/users.get", data={
+    request = requests.post(f"{api_url}users.get", data={
         "user_ids": id,
         "fields": "uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_max,"
                   "photo_max_orig,online,lists,domain,has_mobile,can_write_private_message,timezone,screen_name,"
@@ -176,7 +178,7 @@ def videos_get(id, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/video.get", data={
+        request = requests.post(f"{api_url}video.get", data={
             "owner_id": id,
             "offset": offset,
             "count": 200,
@@ -191,7 +193,7 @@ def videos_get(id, token, v):
                     comment_offset = 0
                     request_all_comments = []
                     while True:
-                        comment_request = requests.post(f"https://api.vk.com/method/video.getComments", data={
+                        comment_request = requests.post(f"{api_url}video.getComments", data={
                             "owner_id": id,
                             "video_id": item["id"],
                             "offset": comment_offset,
@@ -254,7 +256,7 @@ def messages_get(id, token, v):
     while True:
         for k in range(count, 100 + count):
             ids += f"{str(k)},"
-        request = requests.post("https://api.vk.com/method/messages.getById", data={
+        request = requests.post(f"{api_url}messages.getById", data={
             "message_ids": ids,
             "extended": 1,
             "fields": "uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_max,"
@@ -283,7 +285,7 @@ def wall_get(id, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/wall.get", data={
+        request = requests.post(f"{api_url}wall.get", data={
             "owner_id": id,
             "offset": offset,
             "count": 100,
@@ -299,7 +301,7 @@ def wall_get(id, token, v):
                     comment_offset = 0
                     request_all_comments = []
                     while True:
-                        comment_request = requests.post(f"https://api.vk.com/method/wall.getComments", data={
+                        comment_request = requests.post(f"{api_url}wall.getComments", data={
                             "owner_id": id,
                             "post_id": item["id"],
                             "offset": comment_offset,
