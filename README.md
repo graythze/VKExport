@@ -17,16 +17,15 @@ VKExport позволяет экспортировать данные в фай�
 * Документов <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
 * Друзей <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
 * Подарков <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
-* Заметок <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
-* Фотографий <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
+* Заметок <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd> с комментариями <kbd>[notes.getComments](https://vk.com/dev/notes.getComments)</kbd>
+* Фотографий <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> с комментариями <kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
 * Историй <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
-* Видео <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
+* Видео <kbd>[video.get](https://vk.com/dev/video.get)</kbd> с комментариями <kbd>[video.getComments](https://vk.com/dev/video.getComments)</kbd>
 * Подписчиков <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
 * Групп и публичных страниц <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
 * Маркета (магазина) <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
-* Постов на стене <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+* Постов на стене <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd> с комментариями <kbd>[wall.getComments](https://vk.com/dev/wall.getComments)</kbd>
 * Сообщений <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
-* Комментарии под фото <kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
 
 ## ⚙️ Использование
 1) Скачайте скрипт
@@ -118,16 +117,16 @@ VKExport allows you to export data in JSON file from personal or other VK pages
 * Documents <kbd>[docs.get](https://vk.com/dev/docs.get)</kbd>
 * Friends <kbd>[friends.get](https://vk.com/dev/friends.get)</kbd>
 * Gifts <kbd>[gifts.get](https://vk.com/dev/gifts.get)</kbd>
-* Notes <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd>
-* Photos <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd>
+* Notes <kbd>[notes.get](https://vk.com/dev/notes.get)</kbd> with comments <kbd>[notes.getComments](https://vk.com/dev/notes.getComments)</kbd>
+* Photos <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> with comments <kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
 * Stories <kbd>[stories.get](https://vk.com/dev/stories.get)</kbd>
-* Videos <kbd>[video.get](https://vk.com/dev/video.get)</kbd>
+* Videos <kbd>[video.get](https://vk.com/dev/video.get)</kbd> with comments <kbd>[video.getComments](https://vk.com/dev/video.getComments)</kbd>
 * Followers <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
 * Groups, public pages <kbd>[groups.get](https://vk.com/dev/groups.get)</kbd>
 * Market items <kbd>[market.get](https://vk.com/dev/market.get)</kbd>
-* Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+* Wall posts <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd> with comments <kbd>[wall.getComments](https://vk.com/dev/wall.getComments)</kbd>
 * Messages <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd>
-* Comments under photos <kbd>[photos.getAllComments](https://vk.com/dev/photos.getAllComments)</kbd>
+
 
 ## ⚙️ Usage
 1) Download script
