@@ -6,6 +6,8 @@ import logging
 
 time_wait = 1/3
 
+api_url = "https://api.vk.com/method/"
+
 
 def make_request(method, data, method_offset, token, v):
     data["access_token"] = token
@@ -13,7 +15,7 @@ def make_request(method, data, method_offset, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/{method}", data=data).json()
+        request = requests.post(f"{api_url}{method}", data=data).json()
         logging.info(f"Received {method} request. Offset: {offset}")
         logging.debug(request)
         if "response" in request and len(request["response"]["items"]) > 0:
@@ -32,7 +34,7 @@ def make_request(method, data, method_offset, token, v):
 
 def get_numeric_id(id, token, v):
     try:
-        request = requests.post("https://api.vk.com/method/utils.resolveScreenName", data={
+        request = requests.post(f"{api_url}utils.resolveScreenName", data={
             "screen_name": id,
             "access_token": token,
             "v": v}).json()
@@ -84,11 +86,51 @@ def gifts_get(id, token, v):
 
 
 def notes_get(id, token, v):
-    data = {"user_id": id,
-            "offset": 0,
+    offset = 0
+    requests_all = []
+    while True:
+        request = requests.post(f"{api_url}notes.get", data={
+            "user_id": id,
+            "offset": offset,
             "count": 100,
-            "sort": 1}
-    return make_request("notes.get", data, 100, token, v)
+            "access_token": token,
+            "v": v}).json()
+        logging.info(f"Received video.get request. Offset: {offset}")
+        logging.debug(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for item in request["response"]["items"]:
+                if item["comments"] > 0 and item["owner_id"] == int(id):
+                    comment_offset = 0
+                    request_all_comments = []
+                    while True:
+                        comment_request = requests.post(f"{api_url}notes.getComments", data={
+                            "owner_id": id,
+                            "note_id": item["id"],
+                            "offset": comment_offset,
+                            "count": 100,
+                            "access_token": token,
+                            "v": v}).json()
+                        if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
+                            request_all_comments.extend(iter(comment_request["response"]["items"]))
+                            logging.debug(comment_request["response"]["items"])
+                            comment_offset += 100
+                            time.sleep(time_wait)
+                        else:
+                            time.sleep(time_wait)
+                            break
+                    item["comments_user"] = []
+                    item["comments_user"].append(request_all_comments)
+                    logging.info(f"comments for {item['id']} are parsed")
+                else:
+                    logging.info(f"comments for {item['id']} are empty. passing this item...")
+            requests_all.extend(iter(request["response"]["items"]))
+            offset += 200
+            time.sleep(time_wait)
+        else:
+            logging.info(f"wall_get parsing ended")
+            time.sleep(time_wait)
+            break
+    return requests_all
 
 
 def photos_get_all(id, token, v):
@@ -98,7 +140,15 @@ def photos_get_all(id, token, v):
             "count": 200,
             "photo_sizes": 1,
             "no_service_albums": 0}
-    return make_request("photos.getAll", data, 200, token, v)
+    photos = [{"photos": make_request("photos.getAll", data, 200, token, v)}]
+    time.sleep(time_wait)
+    data = {"owner_id": id,
+            "count": 100,
+            "offset": 0,
+            "need_likes": 1}
+    comments = [{"comments_user": make_request("photos.getAllComments", data, 100, token, v)}]
+
+    return photos + comments
 
 
 def stories_get(id, token, v):
@@ -108,7 +158,7 @@ def stories_get(id, token, v):
 
 
 def users_get(id, token, v):
-    request = requests.post("https://api.vk.com/method/users.get", data={
+    request = requests.post(f"{api_url}users.get", data={
         "user_ids": id,
         "fields": "uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_max,"
                   "photo_max_orig,online,lists,domain,has_mobile,can_write_private_message,timezone,screen_name,"
@@ -125,11 +175,53 @@ def users_get(id, token, v):
 
 
 def videos_get(id, token, v):
-    data = {"owner_id": id,
+    offset = 0
+    requests_all = []
+    while True:
+        request = requests.post(f"{api_url}video.get", data={
+            "owner_id": id,
+            "offset": offset,
             "count": 200,
-            "offset": 0,
-            "extended": 1}
-    return make_request("video.get", data, 200, token, v)
+            "extended": 1,
+            "access_token": token,
+            "v": v}).json()
+        logging.info(f"Received video.get request. Offset: {offset}")
+        logging.debug(request)
+        if "response" in request and len(request["response"]["items"]) > 0:
+            for item in request["response"]["items"]:
+                if item["comments"] > 0 and item["owner_id"] == int(id):
+                    comment_offset = 0
+                    request_all_comments = []
+                    while True:
+                        comment_request = requests.post(f"{api_url}video.getComments", data={
+                            "owner_id": id,
+                            "video_id": item["id"],
+                            "offset": comment_offset,
+                            "count": 100,
+                            "extended": 1,
+                            "access_token": token,
+                            "v": v}).json()
+                        if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
+                            request_all_comments.extend(iter(comment_request["response"]["items"]))
+                            logging.debug(comment_request["response"]["items"])
+                            comment_offset += 100
+                            time.sleep(time_wait)
+                        else:
+                            time.sleep(time_wait)
+                            break
+                    item["comments_user"] = []
+                    item["comments_user"].append(request_all_comments)
+                    logging.info(f"comments for {item['id']} are parsed")
+                else:
+                    logging.info(f"comments for {item['id']} are empty. passing this item...")
+            requests_all.extend(iter(request["response"]["items"]))
+            offset += 200
+            time.sleep(time_wait)
+        else:
+            logging.info(f"wall_get parsing ended")
+            time.sleep(time_wait)
+            break
+    return requests_all
 
 
 def followers_get(id, token, v):
@@ -164,7 +256,7 @@ def messages_get(id, token, v):
     while True:
         for k in range(count, 100 + count):
             ids += f"{str(k)},"
-        request = requests.post("https://api.vk.com/method/messages.getById", data={
+        request = requests.post(f"{api_url}messages.getById", data={
             "message_ids": ids,
             "extended": 1,
             "fields": "uid,first_name,last_name,deactivated,verified,sex,bdate,city,country,home_town,photo_max,"
@@ -193,7 +285,7 @@ def wall_get(id, token, v):
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"https://api.vk.com/method/wall.get", data={
+        request = requests.post(f"{api_url}wall.get", data={
             "owner_id": id,
             "offset": offset,
             "count": 100,
@@ -205,29 +297,32 @@ def wall_get(id, token, v):
         logging.debug(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for item in request["response"]["items"]:
-                comment_offset = 0
-                request_all_comments = []
-                while True:
-                    comment_request = requests.post(f"https://api.vk.com/method/wall.getComments", data={
-                        "owner_id": id,
-                        "post_id": item["id"],
-                        "offset": comment_offset,
-                        "count": 100,
-                        "preview_length": "0",
-                        "extended": 1,
-                        "access_token": token,
-                        "v": v}).json()
-                    if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
-                        request_all_comments.extend(iter(comment_request["response"]["items"]))
-                        logging.debug(comment_request["response"]["items"])
-                        comment_offset += 100
-                        time.sleep(time_wait)
-                    else:
-                        time.sleep(time_wait)
-                        break
-                item["comments"] = []
-                item["comments"].append(request_all_comments)
-                logging.info(f"comments for {item['id']} are parsed")
+                if item["comments"]["count"] > 0:
+                    comment_offset = 0
+                    request_all_comments = []
+                    while True:
+                        comment_request = requests.post(f"{api_url}wall.getComments", data={
+                            "owner_id": id,
+                            "post_id": item["id"],
+                            "offset": comment_offset,
+                            "count": 100,
+                            "preview_length": "0",
+                            "extended": 1,
+                            "access_token": token,
+                            "v": v}).json()
+                        if "response" in comment_request and len(comment_request["response"]["items"]) > 0:
+                            request_all_comments.extend(iter(comment_request["response"]["items"]))
+                            logging.debug(comment_request["response"]["items"])
+                            comment_offset += 100
+                            time.sleep(time_wait)
+                        else:
+                            time.sleep(time_wait)
+                            break
+                    item["comments_user"] = []
+                    item["comments_user"].append(request_all_comments)
+                    logging.info(f"comments for {item['id']} are parsed")
+                else:
+                    logging.info(f"comments for {item['id']} are empty. passing this item...")
             requests_all.extend(iter(request["response"]["items"]))
             offset += 100
             time.sleep(time_wait)
@@ -242,13 +337,8 @@ def market_get(id, token, v):
     data = {"owner_id": id,
             "count": 200,
             "offset": 0,
-            "extended": 1}
+            "extended": 1,
+            "need_variants": 1,
+            "with_disabled": 1}
     return make_request("market.get", data, 200, token, v)
 
-
-def photos_get_all_comments(id, token, v):
-    data = {"owner_id": id,
-            "count": 100,
-            "offset": 0,
-            "need_likes": 1}
-    return make_request("photos.getAllComments", data, 100, token, v)
