@@ -6,7 +6,7 @@ import logging
 
 time_wait = 1/3
 
-api_url = "https://api.vk.com/method/"
+api_url = "https://api.vk.ru/method/"
 
 
 def make_request(method, data, method_offset, token, v):
@@ -341,4 +341,5 @@ def market_get(id, token, v):
             "need_variants": 1,
             "with_disabled": 1}
     return make_request("market.get", data, 200, token, v)
+
 
