@@ -1,5 +1,3 @@
-import traceback
-import sys
 import requests
 import time
 import logging
@@ -8,53 +6,73 @@ time_wait = 1/3
 
 api_url = "https://api.vk.ru/method/"
 
+def api_request(method, data):
+    response = requests.post(f"{api_url}{method}", data=data)
+    return response.json()
+
 
 def make_request(method, data, method_offset, token, v):
-    data["access_token"] = token
-    data["v"] = v
+    data = dict(data)
+    data.update({"access_token": token, "v": v})
     offset = 0
     requests_all = []
     while True:
-        request = requests.post(f"{api_url}{method}", data=data).json()
+        request = api_request(method, data)
         logging.info(f"Received {method} request. Offset: {offset}")
         logging.debug(request)
-        if "response" in request and len(request["response"]["items"]) > 0:
-            requests_all.extend(iter(request["response"]["items"]))
-            logging.debug(data["offset"])
-            if method_offset > 0:
-                offset += method_offset
-                data["offset"] = offset
-                time.sleep(time_wait)
-        else:
+        items = request.get("response", {}).get("items", [])
+        if not items:
             logging.info(f"{method} parsing ended")
             time.sleep(time_wait)
             break
+        requests_all.extend(items)
+        if method_offset == 0:
+            break
+        offset += method_offset
+        data["offset"] = offset
+        time.sleep(time_wait)
     return requests_all
 
 
 def get_numeric_id(id, token, v):
-    try:
-        request = requests.post(f"{api_url}utils.resolveScreenName", data={
-            "screen_name": id,
+    if id.lstrip("-").isnumeric() and int(id) != 0:
+        return int(id)
+
+    request = api_request("utils.resolveScreenName", {
+        "screen_name": id,
+        "access_token": token,
+        "v": v,
+    })
+    if "error" in request:
+        raise RuntimeError(request["error"].get("error_msg", "VK API error"))
+    response = request.get("response", {})
+    object_id = response.get("object_id")
+    if response.get("type") == "group":
+        return -int(object_id)
+    if response.get("type") == "user":
+        return int(object_id)
+    raise RuntimeError(f"Could not resolve VK page: {id}")
+
+
+def get_comments(method, data, token, v):
+    offset = 0
+    comments = []
+    while True:
+        request_data = dict(data)
+        request_data.update({
+            "offset": offset,
+            "count": 100,
             "access_token": token,
-            "v": v}).json()
-        print(request)
-        if "response" in request:
-            if id.isnumeric():
-                if int(id) > 0:
-                    return id
-                elif int(id) < 0:
-                    return id
-            else:
-                if "response" in request:
-                    if request["response"]["type"] == "group":
-                        return int(request["response"]["object_id"] * (-1))
-                    elif request["response"]["type"] == "user":
-                        return int(request["response"]["object_id"])
-        elif "error" in request:
-            exit(f"\n{request['error']['error_msg']}\n")
-    except Exception:
-        sys.exit(traceback.print_exc())
+            "v": v,
+        })
+        request = api_request(method, request_data)
+        items = request.get("response", {}).get("items", [])
+        if not items:
+            break
+        comments.extend(items)
+        offset += 100
+        time.sleep(time_wait)
+    return comments
 
 
 def docs_get(id, token, v):
