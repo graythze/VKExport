@@ -31,15 +31,15 @@ VKExport позволяет экспортировать данные в фай�
 ## ⚙️ Использование
 1) Скачайте скрипт
 2) Установите пакеты, используя команду `pip install -r requirements.txt`
-3) Запустите скрипт, используя команду `python collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v `
+3) Укажите нужные разделы в `.env` и запустите скрипт командой `python collector.py VK_TOKEN durov -sf -v`
 
 Команда `python collector.py -h` показана ниже
 
 ```
-usage: collector.py [-h] [-c CUSTOM | -b | -e | -f] [-a API] [-sf] [-v]
+usage: collector.py [-h] [-a API] [-sf] [-v]
                     token id
 
-usage: collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v       
+usage: collector.py VK_TOKEN durov -a 5.82 -sf -v
 
 positional arguments:
   token                 VK API token
@@ -47,11 +47,6 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -c CUSTOM, --custom CUSTOM
-                        Parse custom methods
-  -b, --base            Parse basic info
-  -e, --extra           Parse basic + extra info
-  -f, --full            Parse full info
   -a API, --api API     API version
   -sf, --singlefile     Save result in single file
   -v, --verbose         Increase output verbosity
@@ -66,15 +61,10 @@ options:
 
 `-sf, --singlefile` - Сохранение результата в одном файле. По умолчанию, каждый метод сохраняется в отдельный файл
 
-`-b, --base` — Базовый уровень парсера. Парсинг всех методов, кроме <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> и <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
-
-`-e, --extra ` — Средний уровень парсера. Парсинг всех методов, кроме <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> 
-
-`-f, --full` — Полный уровень парсера. Парсинг всех представленных методов
-
 `-v, --verbose` — Показать подробности
 
-`-c, --custom` — Выбрать собственные методы. Например, при `photos,wall` будет использован парсинг только <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> и <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+### Настройка разделов парсинга
+В файле `.env` для каждого метода задайте `True` (включить) или `False` (отключить). Например, чтобы парсить только фотографии и стену, оставьте `PARSE_PHOTOS_GET_ALL=True` и `PARSE_WALL_GET=True`, а остальные значения переключите на `False`. Шаблон всех настроек находится в `.env.example`; если `.env` отсутствует, скопируйте его из шаблона. Неуказанные параметры считаются выключенными. Значения должны быть написаны именно как `True` или `False`.
 
 ## 🔌 Получение API токена
 
@@ -166,19 +156,12 @@ options:
 
 `-sf, --singlefile ` - Save result in single file. Each file for method by default.
 
-`-m [{1,2,3}], --mode [{1,2,3}]` - Parser complexity. `1` parses all except messages and followers, `2` parses all except messages, `3` parses all methods
-
-`-b, --base` — Base parser complexity, instead <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> and <kbd>[users.getFollowers](https://vk.com/dev/users.getFollowers)</kbd>
-
-`-e, --extra ` —  Extra parser complexity, instead <kbd>[messages.getById](https://vk.com/dev/messages.getById)</kbd> 
-
-`-f, --full` — Full parser complexity. Parsing all methods
-
 `-v, --verbose` — Показать подробности
 
 `-v, --verbose` - Increase output verbosity
 
-`-c, --custom` - Set custom methods, e.g. `photos,wall` will parse <kbd>[photos.get](https://vk.com/dev/photos.get)</kbd> and <kbd>[wall.get](https://vk.com/dev/wall.get)</kbd>
+### Parsing sections
+Set each method to `True` (enabled) or `False` (disabled) in `.env`. For example, set `PARSE_PHOTOS_GET_ALL=True` and `PARSE_WALL_GET=True` and all other entries to `False` to parse only photos and wall posts. The complete template is in `.env.example`; copy it to `.env` if needed. Missing settings default to disabled. Values must be exactly `True` or `False`.
 
 ## 🔌 Getting VK API token
 
