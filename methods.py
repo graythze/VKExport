@@ -113,7 +113,7 @@ def notes_get(id, token, v):
             "count": 100,
             "access_token": token,
             "v": v}).json()
-        logging.info(f"Received video.get request. Offset: {offset}")
+        logging.info(f"Received notes.get request. Offset: {offset}")
         logging.debug(request)
         if "response" in request and len(request["response"]["items"]) > 0:
             for item in request["response"]["items"]:
