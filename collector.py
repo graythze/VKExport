@@ -68,7 +68,6 @@ def create_parser():
     parser = argparse.ArgumentParser(
         description="Export VK page data to JSON files"
     )
-    parser.add_argument("token", help="VK API token")
     parser.add_argument("id", help="Page ID or user domain")
     parser.add_argument("-a", "--api", default="5.82", help="API version")
     parser.add_argument("-sf", "--singlefile", action="store_true")
@@ -113,8 +112,11 @@ def export_data(user_id, token, api_version, selected_methods, single_file):
 def main():
     args = create_parser().parse_args()
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
-    user_id = methods.get_numeric_id(args.id, args.token, args.api)
-    export_data(user_id, args.token, args.api, choose_methods(), args.singlefile)
+    token = os.environ.get("VK_TOKEN", "").strip()
+    if not token:
+        raise SystemExit("VK_TOKEN is not set. Add it to the .env file.")
+    user_id = methods.get_numeric_id(args.id, token, args.api)
+    export_data(user_id, token, args.api, choose_methods(), args.singlefile)
 
 
 if __name__ == "__main__":

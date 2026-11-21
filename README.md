@@ -31,18 +31,16 @@ VKExport позволяет экспортировать данные в фай�
 ## ⚙️ Использование
 1) Скачайте скрипт
 2) Установите пакеты, используя команду `pip install -r requirements.txt`
-3) Укажите нужные разделы в `.env` и запустите скрипт командой `python collector.py VK_TOKEN durov -sf -v`
+3) Скопируйте `.env.example` в `.env`, укажите в нём токен в `VK_TOKEN=...` и включите нужные разделы парсинга. Запустите скрипт командой `python collector.py durov -sf -v`
 
 Команда `python collector.py -h` показана ниже
 
 ```
-usage: collector.py [-h] [-a API] [-sf] [-v]
-                    token id
+usage: collector.py [-h] [-a API] [-sf] [-v] id
 
-usage: collector.py VK_TOKEN durov -a 5.82 -sf -v
+usage: collector.py durov -a 5.82 -sf -v
 
 positional arguments:
-  token                 VK API token
   id                    Page ID or user domain
 
 options:
@@ -53,8 +51,6 @@ options:
 ```
 
 ### 📍 Аргументы
-`token` - Токен VK API
-
 `id` — идентификатор или домен страницы (например, `1`, `id1` или `durov`)
 
 `-a, --apiver` — версия API VK, например `5.82`. Default: `5.82`
@@ -64,7 +60,7 @@ options:
 `-v, --verbose` — Показать подробности
 
 ### Настройка разделов парсинга
-В файле `.env` для каждого метода задайте `True` (включить) или `False` (отключить). Например, чтобы парсить только фотографии и стену, оставьте `PARSE_PHOTOS_GET_ALL=True` и `PARSE_WALL_GET=True`, а остальные значения переключите на `False`. Шаблон всех настроек находится в `.env.example`; если `.env` отсутствует, скопируйте его из шаблона. Неуказанные параметры считаются выключенными. Значения должны быть написаны именно как `True` или `False`.
+Скопируйте `.env.example` в `.env`. Укажите токен VK API в `VK_TOKEN=...` и задайте для каждого метода `True` (включить) или `False` (отключить). Например, чтобы парсить только фотографии и стену, оставьте `PARSE_PHOTOS_GET_ALL=True` и `PARSE_WALL_GET=True`, а остальные значения переключите на `False`. Файл `.env` содержит секретный токен и не должен публиковаться.
 
 ## 🔌 Получение API токена
 
@@ -75,7 +71,7 @@ options:
 3) Нажмите на выбранное приложение
 4) Нажмите на  "Продолжить как" или "Разрешить"
 5) Скопируйте часть URL начиная с `access_token= ` и заканчивая `&expires_in`
-6) Вставьте токен в скрипт
+6) Вставьте токен в `.env` после `VK_TOKEN=`
 
 Также можно использовать другие приложения или службы для получения токена.
 
@@ -122,17 +118,15 @@ VKExport allows you to export data in JSON file from personal or other VK pages
 ## ⚙️ Usage
 1) Download script
 2) Install packages using `pip install -r requirements.txt`
-3) Run script using `python collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v `
+3) Copy `.env.example` to `.env`, set `VK_TOKEN=...` and choose the parsing sections, then run `python collector.py durov -a 5.82 -sf -v`
 
 The command `python collector.py -h` is shown below
 ```
-usage: collector.py [-h] [-c CUSTOM | -b | -e | -f] [-a API] [-sf] [-v]
-                    token id
+usage: collector.py [-h] [-a API] [-sf] [-v] id
 
-usage: collector.py VK_TOKEN durov -api 5.82 -c wall,photos,notes -sf -v       
+usage: collector.py durov -a 5.82 -sf -v
 
 positional arguments:
-  token                 VK API token
   id                    Page ID or user domain
 
 options:
@@ -148,8 +142,6 @@ options:
 ```
 
 ### 📍 Arguments
-`token` - VK API Token
-
 `id` - ID or Page domain (e.g. `1`, `id1` or `durov`)
 
 `api APIVER, --apiver APIVER` - VK API Version, eg `5.82`
@@ -161,7 +153,7 @@ options:
 `-v, --verbose` - Increase output verbosity
 
 ### Parsing sections
-Set each method to `True` (enabled) or `False` (disabled) in `.env`. For example, set `PARSE_PHOTOS_GET_ALL=True` and `PARSE_WALL_GET=True` and all other entries to `False` to parse only photos and wall posts. The complete template is in `.env.example`; copy it to `.env` if needed. Missing settings default to disabled. Values must be exactly `True` or `False`.
+Copy `.env.example` to `.env`. Set the VK API token in `VK_TOKEN=...`, then set each method to `True` (enabled) or `False` (disabled). For example, set `PARSE_PHOTOS_GET_ALL=True` and `PARSE_WALL_GET=True` and all other entries to `False` to parse only photos and wall posts. Keep `.env` private because it contains your token.
 
 ## 🔌 Getting VK API token
 
@@ -171,8 +163,8 @@ Service [*vkhost.github.io*](https://vkhost.github.io/) helps automatically buli
 2) Choose app. It's better to use token from Kate Mobile or VFeed apps 
 3) Click on app 
 4) Click on "Continue as" or "Allow"
-5) Copy part of URL from `access_token= `to `&expires_in`
-6) Paste token to CLI
+5) Copy the token value between `access_token=` and `&expires_in`
+6) Put the token in `.env` after `VK_TOKEN=`
 
 You can use other apps or services to get token.
 
